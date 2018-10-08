@@ -1,0 +1,7 @@
+"0","all$glotto[!is.na(all$collection.x)] %>% "
+"0","  unique() %>%"
+"0","  length()"
+"1","[1]"
+"1"," 541"
+"1","
+"

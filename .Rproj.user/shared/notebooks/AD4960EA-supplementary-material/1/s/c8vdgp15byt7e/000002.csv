@@ -1,0 +1,148 @@
+"0","files = list.files('results/anc-state/fossilized-bantu/', pattern = ""Log.txt"", "
+"0","                   full.names = TRUE)"
+"0","stones_files = list.files('results/anc-state/fossilized-bantu/', pattern = ""Stones.txt"", "
+"0","                   full.names = TRUE)"
+"0","bantu_kincodes = stones_files %>% "
+"0","  basename() %>% "
+"0","  str_split(""_"") %>%"
+"0","  sapply(extract2, 1) %>% "
+"0","  unique()"
+"0","gelmanrubin_table = matrix(NA, ncol = 2, nrow = length(bantu_kincodes), "
+"0","                           dimnames = list((bantu_kincodes), "
+"0","                                           c(""Point est."", ""Upper C.I."")))"
+"0","lh_table = matrix(NA, ncol = length(bantu_kincodes), nrow = 4, "
+"0","                  dimnames = list(c(1:3, ""Mean""), bantu_kincodes))"
+"0","for(k in bantu_kincodes){"
+"0","  idx = str_detect(files, as.character(k))"
+"0","  logs = map(files[idx], read.bayestraits)"
+"0"," "
+"0","  all_mcmc = mcmc.list(map(logs, function(x) as.mcmc(x$Lh)))"
+"0","  d1 = gelman.diag(all_mcmc)"
+"0","  gelmanrubin_table[k,] = d1$psrf"
+"0","  "
+"0","  idx = str_detect(stones_files, as.character(k))"
+"0","  stones = map(stones_files[idx], read.stones) %>% "
+"0","    unlist()"
+"0","  "
+"0","  lh_table[,k] = c(stones, harmonic.mean(stones))"
+"0","}"
+"0","  print("
+"0","    lh_table %>% "
+"0","    kable(format = 'html', caption = ""Marginal log-likelihood for three runs of each fossilized terminology in Bantu"", digits = 3) %>%"
+"0","    kable_styling(bootstrap_options = c(""striped"", ""bordered""))"
+"0","  )"
+"1","<table class=""table table-striped table-bordered"" style=""margin-left: auto; margin-right: auto;"">
+<caption>Marginal log-likelihood for three runs of each fossilized terminology in Bantu</caption>
+ <thead>
+  <tr>
+   <th style=""text-align:left;"">   </th>
+   <th style=""text-align:right;""> Crow </th>
+   <th style=""text-align:right;""> Descriptive </th>
+   <th style=""text-align:right;""> Hawaiian </th>
+   <th style=""text-align:right;""> Iroquois </th>
+   <th style=""text-align:right;""> Mixed </th>
+   <th style=""text-align:right;""> Omaha </th>
+   <th style=""text-align:right;""> Sudanese </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style=""text-align:left;""> 1 </td>
+   <td style=""text-align:right;""> -93.867 </td>
+   <td style=""text-align:right;""> -94.056 </td>
+   <td style=""text-align:right;""> -92.303 </td>
+   <td style=""text-align:right;""> -91.562 </td>
+   <td style=""text-align:right;""> -94.748 </td>
+   <td style=""text-align:right;""> -94.915 </td>
+   <td style=""text-align:right;""> -93.454 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> 2 </td>
+   <td style=""text-align:right;""> -92.828 </td>
+   <td style=""text-align:right;""> -95.856 </td>
+   <td style=""text-align:right;""> -93.706 </td>
+   <td style=""text-align:right;""> -90.160 </td>
+   <td style=""text-align:right;""> -93.739 </td>
+   <td style=""text-align:right;""> -93.824 </td>
+   <td style=""text-align:right;""> -94.241 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> 3 </td>
+   <td style=""text-align:right;""> -92.440 </td>
+   <td style=""text-align:right;""> -94.463 </td>
+   <td style=""text-align:right;""> -91.300 </td>
+   <td style=""text-align:right;""> -91.131 </td>
+   <td style=""text-align:right;""> -94.466 </td>
+   <td style=""text-align:right;""> -92.978 </td>
+   <td style=""text-align:right;""> -93.329 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Mean </td>
+   <td style=""text-align:right;""> -93.041 </td>
+   <td style=""text-align:right;""> -94.786 </td>
+   <td style=""text-align:right;""> -92.426 </td>
+   <td style=""text-align:right;""> -90.947 </td>
+   <td style=""text-align:right;""> -94.316 </td>
+   <td style=""text-align:right;""> -93.899 </td>
+   <td style=""text-align:right;""> -93.673 </td>
+  </tr>
+</tbody>
+</table>"
+"1","
+"
+"0","print("
+"0","  gelmanrubin_table %>% "
+"0","    kable(format = 'html', "
+"0","          caption = ""Gelman-Rubin tests of MCMC convergence for each each fossilized model"","
+"0","          digits = 3) %>%"
+"0","    kable_styling(bootstrap_options = c(""striped"", ""bordered""))"
+"0",")"
+"1","<table class=""table table-striped table-bordered"" style=""margin-left: auto; margin-right: auto;"">
+<caption>Gelman-Rubin tests of MCMC convergence for each each fossilized model</caption>
+ <thead>
+  <tr>
+   <th style=""text-align:left;"">   </th>
+   <th style=""text-align:right;""> Point est. </th>
+   <th style=""text-align:right;""> Upper C.I. </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style=""text-align:left;""> Crow </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.000 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Descriptive </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.000 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Hawaiian </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.001 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Iroquois </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.000 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Mixed </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.000 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Omaha </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.000 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Sudanese </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.000 </td>
+  </tr>
+</tbody>
+</table>"
+"1","
+"

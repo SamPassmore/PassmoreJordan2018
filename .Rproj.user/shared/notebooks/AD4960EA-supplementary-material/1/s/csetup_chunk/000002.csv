@@ -1,0 +1,76 @@
+"0","options(scipen=999)"
+"0","knitr::opts_chunk$set(echo = FALSE, message = FALSE, warnings = FALSE)"
+"0","library(knitr)"
+"0","library(kableExtra)"
+"0","library(stringr)"
+"0","library(dplyr)"
+"2","package ‘dplyr’ was built under R version 3.5.1"
+"2","
+Attaching package: ‘dplyr’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(coda)"
+"0","library(purrr)"
+"2","
+Attaching package: ‘purrr’
+
+"
+"2","The following object is masked from ‘package:magrittr’:
+
+    set_names
+
+"
+"0","library(excdr)"
+"0","library(psych)"
+"2","
+Attaching package: ‘psych’
+
+"
+"2","The following objects are masked from ‘package:ggplot2’:
+
+    %+%, alpha
+
+"
+"0","library(ggplot2)"
+"0","library(gridExtra)"
+"2","
+Attaching package: ‘gridExtra’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    combine
+
+"
+"0","library(tidyr)"
+"2","
+Attaching package: ‘tidyr’
+
+"
+"2","The following object is masked from ‘package:magrittr’:
+
+    extract
+
+"
+"0","library(reshape2)"
+"2","
+Attaching package: ‘reshape2’
+
+"
+"2","The following object is masked from ‘package:tidyr’:
+
+    smiths
+
+"
+"0","source('processing/helper.R')"
+"0","kincodes = read.csv('data/kincodes', header = FALSE)"

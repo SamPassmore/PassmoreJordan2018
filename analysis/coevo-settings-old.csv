@@ -1,0 +1,60 @@
+job,prior.type,scale.trees,prior.exp.value,iterations,sampling,burnin,posterior.size,settings ok,marginal.likelihood ok,stones.1,stones.2,mcmc.notes
+austronesian-crow-high.polygyny,RevJump,ScaleTrees,1,160000,100,10000,1500,y,,100,1000,
+austronesian-crow-matri.anvunclocalresidence,RevJump,ScaleTrees,1,160000,100,10000,1500,y,,100,1000,"bi-modal results in independent model, both better than dependent model"
+austronesian-crow-matrilineal,RevJump,ScaleTrees,10,2407763595,100000,2257763595,1500,y,,100,1000,"indep split between likely loss of crow, or equal gain/loss of crow.  Longer run w/ longer burning might converge? Dep would also benefit from thiss"
+austronesian-crow-polygyny,RevJump,,10,2407763595,40000,2347763595,1500,n,n,100,1000,try a super long burnin to hope of focusing on one result in indep. Re-running without scaling the trees. This seemed better but went off randomly at the end running again.
+austronesian-crow-matrilocal,RevJump,ScaleTrees,10,2407763595,40000,2347763595,1500,y,,100,1000,try with scaletrees (forgot to put it in last time)
+austronesian-crow-uni.localresidence,RevJump,ScaleTrees,10,2407763595,8000,2395763595,1500,y,n,100,1000,"try run this longer, although mcmc chain isn't terribly bad. "
+austronesian-eskimo-absenceofcousinmarriage.permitted,RevJump,ScaleTrees,1,2407763595,4000,2401763595,1500,n,n,100,1000,Seems bimodal
+austronesian-eskimo-absenceofcousinmarriage.preference,RevJump,ScaleTrees,10,2407763595,500000,1657763595,1500,n,n,100,1000,indep chain bimodal
+austronesian-eskimo-bi.linealdescent,RevJump,,1,2407763595,8000,2395763595,1500,n,n,100,1000,"much longer chain, but sampling rate seems ok. Re-running without scale trees. Try different stepping stone samplers"
+austronesian-eskimo-monogamy,RevJump,ScaleTrees,10,34000000,20000,4000000,1500,y,n,100,1000,"independent model is bi-modal, but both better than dependent model. One suggests it's unlikely to gain eskimo terminology over losing it, where as the other suggests it is equal"
+austronesian-eskimo-neo.localresidence,RevJump,ScaleTrees,1,2407763595,40000,2347763595,1500,y,n,100,1000,"needs to be run for significantly longer, then looks like it will converge. Keeps jumping - trying a second time at same chain length. But may need to go longer again?"
+austronesian-eskimo-inheritancetobothsex.restricted,RevJump,ScaleTrees,1,60100000,40000,100000,1500,y,,100,1000,
+austronesian-eskimo-nuclear.families,RevJump,ScaleTrees,1,60100000,40000,100000,1500,y,n,100,1000,
+austronesian-eskimo-inheritancetobothsex,RevJump,ScaleTrees,10,2407763595,100000,2257763595,1500,n,,100,1000,bi-modal in independent model
+austronesian-eskimo-uni.linealdescent,RevJump,ScaleTrees,1,2407763595,10000,2392763595,1500,y,,100,1000,"currently bi-modal, might stick to one model with a long chain? Second run still bimodal, but results seem to overlap. Not sure what to do. "
+austronesian-hawaiian-absenceofcousinmarriage.permitted,RevJump,ScaleTrees,1,2407763595,100000,2257763595,1500,n,n,100,1000,slightly bimodal in indep chain
+austronesian-hawaiian-absenceofcousinmarriage.preference,RevJump,ScaleTrees,1,2407763595,1000,2406263595,1500,n,n,100,1000,Stone MLL is very different from Mean MLL
+austronesian-hawaiian-bi.linealdescent,RevJump,ScaleTrees,1,1600000,1000,100000,1500,y,n,100,1000,run for longer with these setting shoul be ok
+austronesian-hawaiian-bi.localextendedfamily,RevJump,ScaleTrees,1,3100000,2000,100000,1500,y,n,100,1000,run for longer with these setting shoul be ok
+austronesian-hawaiian-bi.localresidence,RevJump,ScaleTrees,1,2407763595,2000,2404763595,1500,y,n,100,1000,run for longer with these setting shoul be ok
+austronesian-iroquois-cross.cousinmarriage.permitted,RevJump,ScaleTrees,10,2407763595,2000,2404763595,1500,n,n,100,1000,dependent model seems to occasionaly spike but can't tell why
+austronesian-iroquois-cross.cousinmarriage.preferred,RevJump,ScaleTrees,10,2407763595,2000,2404763595,1500,n,n,100,1000,"independet model seems to occasionaly spike, but can't tell why. "
+austronesian-iroquois-exogamy.unilineal.descent,RevJump,ScaleTrees,1,6100000,4000,100000,1500,y,?,100,1000,"run for a bit longer and sample a bit more infrequently to see if that gives lsightly better results, but its ok"
+austronesian-iroquois-high.polygyny,RevJump,ScaleTrees,1,1550000,1000,50000,1500,y,n,100,1000,probably ok as is
+austronesian-iroquois-matri.anvunclocalresidence,RevJump,ScaleTrees,1,3050000,2000,50000,1500,y,n,100,1000,probably ok as is
+austronesian-iroquois-polygyny,RevJump,ScaleTrees,1,27000000,16000,3000000,1500,y,?,100,1000,possibly ok? Maybe make the burnin a lot longer to see if that helps.
+austronesian-iroquois-uni.linealdescent,RevJump,ScaleTrees,1,30100000,20000,100000,1500,y,n,100,1000,need to extend run and burn-in to get sample of 1000
+austronesian-iroquois-uni.localresidence,RevJump,ScaleTrees,1,2407763595,4000,2401763595,1500,y,n,100,1000,make a longer run and burn-in reduced sampleing on cluters
+bantu-crow-matri.anvunclocalresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,
+bantu-crow-matrilineal,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,lower side problems in indep test? Slight bimodal?
+bantu-crow-matrilocal,RevJump,ScaleTrees,10,2407763595,500000,1657763595,1500,n,n,100,1000,slightly bi-modal
+bantu-crow-uni.localresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,
+bantu-hawaiian-absenceofcousinmarriage.permitted,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,n,n,100,1000,
+bantu-hawaiian-absenceofcousinmarriage.preference,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,n,n,100,1000,
+bantu-hawaiian-bi.linealdescent,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,
+bantu-hawaiian-bi.localextendedfamily,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,slightly bi-model in the dependent result? Likelihoods pretty much the same though. Indep chain a little odd.
+bantu-hawaiian-bi.localresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,
+bantu-iroquois-cross.cousinmarriage.permitted,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,,n,100,1000,
+bantu-iroquois-cross.cousinmarriage.preferred,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,,?,100,1000,
+bantu-iroquois-exogamy.unilineal.descent,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,?,100,1000,
+bantu-iroquois-matri.anvunclocalresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,?,100,1000,
+bantu-iroquois-uni.linealdescent,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,
+bantu-iroquois-uni.localresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,
+bantu-omaha-matri.anvunclocalresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,
+bantu-omaha-patrilineal,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,might need to sample less and run longer
+bantu-omaha-patrilocal,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,,100,1000,
+bantu-omaha-uni.localresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,n,100,1000,
+uto-hawaiian-absenceofcousinmarriage.permitted,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,,y,100,1000,
+uto-hawaiian-absenceofcousinmarriage.preference,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,,?,100,1000,
+uto-hawaiian-bi.linealdescent,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,?,100,1000,
+uto-hawaiian-bi.localextendedfamily,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,?,100,1000,
+uto-hawaiian-bi.localresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,?,100,1000,
+uto-iroquois-cross.cousinmarriage.permitted,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,,?,100,1000,
+uto-iroquois-cross.cousinmarriage.preferred,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,,?,100,1000,
+uto-iroquois-exogamy.unilineal.descent,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,y,100,1000,
+uto-iroquois-high.polygyny,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,?,100,1000,
+uto-iroquois-matri.anvunclocalresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,y,100,1000,
+uto-iroquois-uni.linealdescent,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,y,100,1000,
+uto-iroquois-uni.localresidence,RevJump,ScaleTrees,10,2407763595,50000,2332763595,1500,y,?,100,1000,

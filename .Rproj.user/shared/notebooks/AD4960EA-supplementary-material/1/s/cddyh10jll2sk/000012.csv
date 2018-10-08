@@ -1,0 +1,5 @@
+"0","rowSums(results$Absent, results$Present)
+"
+"2","Error in rowSums(results$Absent, results$Present) : 
+  'x' must be an array of at least two dimensions
+"

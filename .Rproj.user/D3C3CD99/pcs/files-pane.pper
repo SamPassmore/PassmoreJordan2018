@@ -1,0 +1,13 @@
+{
+    "path" : "~/Desktop/Projects_Git/evolution-of-kinshipterminologies",
+    "sortOrder" : [
+        {
+            "ascending" : false,
+            "columnIndex" : 4
+        },
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1536583927089.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1689510029",
+    "id" : "61DBE6E7",
+    "lastKnownWriteTime" : 1539013561,
+    "last_content_update" : 1539013561884,
+    "path" : "~/Desktop/Projects_Git/evolution-of-kinshipterminologies/supplementary-material.Rmd",
+    "project_path" : "supplementary-material.Rmd",
+    "properties" : {
+        "cursorPosition" : "332,20",
+        "last_setup_crc32" : "",
+        "scrollLine" : "331",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

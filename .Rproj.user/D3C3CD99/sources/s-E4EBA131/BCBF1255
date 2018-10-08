@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1539004454345.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BCBF1255",
+    "lastKnownWriteTime" : 1539010970,
+    "last_content_update" : 1539010970137,
+    "path" : "~/Desktop/Projects_Git/evolution-of-kinshipterminologies/figures/figure-helper.R",
+    "project_path" : "figures/figure-helper.R",
+    "properties" : {
+        "cursorPosition" : "5,25",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

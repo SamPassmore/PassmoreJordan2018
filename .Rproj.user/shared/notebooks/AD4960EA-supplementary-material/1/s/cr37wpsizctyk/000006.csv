@@ -1,0 +1,250 @@
+"0","folders = paste0('results/anc-state/', c('austronesian', 'bantu', 'utoaztecan'))"
+"0","gelmanrubin_table = matrix(NA, ncol = 2, nrow = 3, "
+"0","                           dimnames = list(basename(folders), "
+"0","                                           c(""Point est."", ""Upper C.I."")))"
+"0","for(f in folders){"
+"0","  files = list.files(path = f, pattern = ""*.Log.txt"", full.names = TRUE)"
+"0","  logs = map(files, read.bayestraits)"
+"0","  "
+"0","  roots = map(logs, function(l){"
+"0","    root_cols = str_detect(colnames(l), ""(^Lh)|(^Root)"")"
+"0","    #root = l[,root_cols] %>% colMeans()"
+"0","    root = l[10001:20000,root_cols] %>% apply(., 2, "
+"0","                                   harmonic.mean, zero = FALSE)"
+"0","    round(root, 3)"
+"0","  }) %>% "
+"0","    do.call(rbind, .)"
+"0","  "
+"0","  idx = str_detect(colnames(roots), ""Root"")"
+"0","  old_names = colnames(roots)[idx] %>% "
+"0","    str_extract(""[0-9]"") %>% "
+"0","    as.numeric()"
+"0","  new_names = kincodes[kincodes$V1 %in% old_names,2]"
+"0","  colnames(roots)[idx] = as.character(new_names)"
+"0","  "
+"0","  roots = rbind(roots, colMeans(roots))"
+"0","  rownames(roots) = c(1:3, ""Mean"")"
+"0","  # gelman-rubin statistic"
+"0","  all_mcmc = mcmc.list(map(logs, function(x) as.mcmc(x$Lh)))"
+"0","  d1 = gelman.diag(all_mcmc)"
+"0","  rownames(d1$psrf) = basename(f)"
+"0","  "
+"0","  gelmanrubin_table[basename(f),] = d1$psrf"
+"0","  "
+"0","  caption = paste0(""Three MCMC chains for the "", basename(f), "" language family"")"
+"0","  "
+"0","  ## print table"
+"0","  print("
+"0","    roots %>% "
+"0","    kable(format = 'html', caption = caption, digits = 3) %>%"
+"0","    kable_styling(bootstrap_options = c(""striped"", ""bordered""))"
+"0","  )"
+"0","}"
+"1","<table class=""table table-striped table-bordered"" style=""margin-left: auto; margin-right: auto;"">
+<caption>Three MCMC chains for the austronesian language family</caption>
+ <thead>
+  <tr>
+   <th style=""text-align:left;"">   </th>
+   <th style=""text-align:right;""> Lh </th>
+   <th style=""text-align:right;""> Crow </th>
+   <th style=""text-align:right;""> Eskimo </th>
+   <th style=""text-align:right;""> Hawaiian </th>
+   <th style=""text-align:right;""> Iroquois </th>
+   <th style=""text-align:right;""> Omaha </th>
+   <th style=""text-align:right;""> Sudanese </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style=""text-align:left;""> 1 </td>
+   <td style=""text-align:right;""> -95.097 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0.663 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> 2 </td>
+   <td style=""text-align:right;""> -95.074 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0.213 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> 3 </td>
+   <td style=""text-align:right;""> -95.018 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0.420 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Mean </td>
+   <td style=""text-align:right;""> -95.063 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0.432 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+  </tr>
+</tbody>
+</table>"
+"1","
+"
+"1","<table class=""table table-striped table-bordered"" style=""margin-left: auto; margin-right: auto;"">
+<caption>Three MCMC chains for the bantu language family</caption>
+ <thead>
+  <tr>
+   <th style=""text-align:left;"">   </th>
+   <th style=""text-align:right;""> Lh </th>
+   <th style=""text-align:right;""> Crow </th>
+   <th style=""text-align:right;""> Descriptive </th>
+   <th style=""text-align:right;""> Hawaiian </th>
+   <th style=""text-align:right;""> Iroquois </th>
+   <th style=""text-align:right;""> Omaha </th>
+   <th style=""text-align:right;""> Sudanese </th>
+   <th style=""text-align:right;""> Mixed </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style=""text-align:left;""> 1 </td>
+   <td style=""text-align:right;""> -82.142 </td>
+   <td style=""text-align:right;""> 0.002 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+   <td style=""text-align:right;""> 0.029 </td>
+   <td style=""text-align:right;""> 0.230 </td>
+   <td style=""text-align:right;""> 0.006 </td>
+   <td style=""text-align:right;""> 0.002 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> 2 </td>
+   <td style=""text-align:right;""> -82.197 </td>
+   <td style=""text-align:right;""> 0.004 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+   <td style=""text-align:right;""> 0.028 </td>
+   <td style=""text-align:right;""> 0.226 </td>
+   <td style=""text-align:right;""> 0.002 </td>
+   <td style=""text-align:right;""> 0.002 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> 3 </td>
+   <td style=""text-align:right;""> -82.142 </td>
+   <td style=""text-align:right;""> 0.003 </td>
+   <td style=""text-align:right;""> 0.002 </td>
+   <td style=""text-align:right;""> 0.008 </td>
+   <td style=""text-align:right;""> 0.227 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Mean </td>
+   <td style=""text-align:right;""> -82.160 </td>
+   <td style=""text-align:right;""> 0.003 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+   <td style=""text-align:right;""> 0.022 </td>
+   <td style=""text-align:right;""> 0.228 </td>
+   <td style=""text-align:right;""> 0.003 </td>
+   <td style=""text-align:right;""> 0.002 </td>
+   <td style=""text-align:right;""> 0.001 </td>
+  </tr>
+</tbody>
+</table>"
+"1","
+"
+"1","<table class=""table table-striped table-bordered"" style=""margin-left: auto; margin-right: auto;"">
+<caption>Three MCMC chains for the utoaztecan language family</caption>
+ <thead>
+  <tr>
+   <th style=""text-align:left;"">   </th>
+   <th style=""text-align:right;""> Lh </th>
+   <th style=""text-align:right;""> Crow </th>
+   <th style=""text-align:right;""> Eskimo </th>
+   <th style=""text-align:right;""> Hawaiian </th>
+   <th style=""text-align:right;""> Iroquois </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style=""text-align:left;""> 1 </td>
+   <td style=""text-align:right;""> -14.559 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0.999 </td>
+   <td style=""text-align:right;""> 0 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> 2 </td>
+   <td style=""text-align:right;""> -14.573 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0.999 </td>
+   <td style=""text-align:right;""> 0 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> 3 </td>
+   <td style=""text-align:right;""> -14.554 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0.998 </td>
+   <td style=""text-align:right;""> 0 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Mean </td>
+   <td style=""text-align:right;""> -14.562 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0 </td>
+   <td style=""text-align:right;""> 0.999 </td>
+   <td style=""text-align:right;""> 0 </td>
+  </tr>
+</tbody>
+</table>"
+"1","
+"
+"0","print("
+"0","  gelmanrubin_table %>% "
+"0","    kable(format = 'html', "
+"0","          caption = ""Gelman-Rubin tests of MCMC convergence for each langauge family"","
+"0","          digits = 3) %>%"
+"0","    kable_styling(bootstrap_options = c(""striped"", ""bordered""))"
+"0",")"
+"1","<table class=""table table-striped table-bordered"" style=""margin-left: auto; margin-right: auto;"">
+<caption>Gelman-Rubin tests of MCMC convergence for each langauge family</caption>
+ <thead>
+  <tr>
+   <th style=""text-align:left;"">   </th>
+   <th style=""text-align:right;""> Point est. </th>
+   <th style=""text-align:right;""> Upper C.I. </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style=""text-align:left;""> austronesian </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.001 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> bantu </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.000 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> utoaztecan </td>
+   <td style=""text-align:right;""> 1 </td>
+   <td style=""text-align:right;""> 1.000 </td>
+  </tr>
+</tbody>
+</table>"
+"1","
+"
