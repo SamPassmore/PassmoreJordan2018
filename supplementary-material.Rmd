@@ -2,14 +2,12 @@
 title: "Supplementary Material"
 author: "Sam Passmore & Fiona Jordan"
 date: "01/08/2018"
+bibliography: bibliography.bibtex
 output:
   html_document:
     number_sections: yes
     toc: yes
     toc_float: yes
-  word_document:
-    toc: yes
-bibliography: bibliography.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -22,12 +20,13 @@ library(stringr)
 library(dplyr)
 library(coda)
 library(purrr)
-library(excdr)
+#library(excdr)
 library(psych)
 library(ggplot2)
 library(gridExtra)
 library(tidyr)
 library(reshape2)
+library(bayestraitr)
 
 source('processing/helper.R')
 
@@ -49,7 +48,7 @@ d = suppressWarnings(purrr::map(files, read.table))
 t = lapply(d, nrow) %>%
   unlist() %>% 
   matrix(., ncol = 1)
-dimnames(t) = list(c("Austronesian", "Bantu", "Indo-European", "Uto-Aztecan"), "Count")
+dimnames(t) = list(c("Austronesian", "Bantu", "Uto-Aztecan"), "Count")
 
 kable(t,
       caption = "Table S1: Count of societies in signal test and ancestral state analyses, by language family", 
@@ -97,8 +96,6 @@ kable(s, col.names =
 
 ### Co-evolutionary hypotheses and references
 
-Here we show the the location of the original hypotheses of social structure and kinship terminologies. 
-
 ```{r, results='asis', message = FALSE}
 quotes = read.csv('figures/hypothesis-table.csv')
 
@@ -111,13 +108,12 @@ kable(quotes,
 ## Phylogenies 
 
 We tested hypotheses across three languages families, where data allowed. This was the Austronesian, Bantu, and Uto-Aztecan language phylogenies. All language to phylogeny pairings were taken from decisions made in @kirby2016d.
-In Austronesian, we sub-sampled 1000 phylogenies from a posterior sample of 4199 phylogenies developed in @gray2009. Austronesian phylogenies were estimated through linguistic data and supported by genetic evidence, and archaeological records. Detailed methods can be found in @gray2009. Trees were pruned from the original sample of 400 languages, to 80 languages based on data availability. In Bantu, we sampled 1000 from a posterior sample of 2000 phylogenies developed in @grollemund2015bantu. These were developed using linguistic data and calibrated using the archaeological record. Trees were pruned from the original sample of 425 languages, to 69 languages based on data availability. In Uto-Aztecan, we sampled 1000 phylogenies from a posterior of 10000 phylogenies developed by @levinson2011. This was developed using linguistic data. Trees were pruned from the original sample of 34 languages, to 19 based on data availability.
+In Austronesian, we sub-sampled 1000 phylogenies from a posterior sample of 4199 phylogenies developed in @gray2009. Austronesian phylogenies were estimated through linguistic data and supported by genetic evidence, and archaeological records. Detailed methods can be found in @gray2009. Trees were pruned from the original sample of 400 languages, to 80 languages based on data availability. In Bantu, we sampled 1000 from a posterior sample of 2000 phylogenies developed in @grollemund2015bantu. These were developed using linguistic data and calibrated using the archaeological record. Trees were pruned from the original sample of 425 languages, to 69 languages based on data availability. In Uto-Aztecan, we sampled 1000 phylogenies from a posterior of 10000 phylogenies developed by @Levinson_Greenhill_Gray_Dunn_2011 This was developed using linguistic data. Trees were pruned from the original sample of 34 languages, to 19 based on data availability.
 
 # Signal tests
-We performed 4 signal tests to assess the hypotheses that shared ancestry was a constraint on kinship diversity. The phylogenetic ‘D’ test uses simulation to determine whether the clustering of binary variables on a phylogeny follow patterns of Brownian motion (D = 0 indicates perfectly Brownian clusters & D < 0 strong clustering) or random clustering (D = 1 indicates complete randomness). To test whether geography may also predict the distribution of terminologies, we used Mantel tests. Mantel tests use random permutation and Pearson’s correlation statistics to determine the correlation between two matrices. Here we compare log geographic distance, calculated with the haversine formula, to a binary similarity matrix of each terminology present in each language family, each over the default setting of 999 permutations. To determine whether phylogenetic or geographic distances best determined the distribution of terminologies, we used partial mantel tests. Partial Mantel tests control for a confounding variable, while comparing matrices. We perform two tests, one between a terminology and geographic distance, controlling for phylogenetic distance, and one between terminology and phylogenetic distance, controlling for geographic distance. Phylogenetic distance is calculated using cophenetic distance, and the cophenetic function in R {stats} (R Core Team 2018). All results in table S3 show the mean result from 1000 phylogenies. Here we show the results of all these tests for all terminologies present within each language family. However, we only consider results viable if the terminology consists of more than 10% of the overall sample. All p-values are bonferonni corrected. 
+We performed 4 signal tests to assess the hypotheses that shared ancestry was a constraint on kinship diversity. The phylogenetic ‘D’ test uses simulation to determine whether the clustering of binary variables on a phylogeny follow patterns of Brownian motion (D = 0 indicates perfectly Brownian clusters & D < 0 strong clustering) or random clustering (D = 1 indicates complete randomness). To test whether geography may also predict the distribution of terminologies, we used Mantel tests. Mantel tests use random permutation and Pearson’s correlation statistics to determine the correlation between two matrices. Here we compare log geographic distance, calculated with the Haversine formula, to a binary similarity matrix of each terminology present in each language family, each over the default setting of 999 permutations. To determine whether phylogenetic or geographic distances best determined the distribution of terminologies, we used partial Mantel tests. Partial Mantel tests control for a confounding variable, while comparing matrices. We perform two tests, one between a terminology and geographic distance, controlling for phylogenetic distance, and one between terminology and phylogenetic distance, controlling for geographic distance. Phylogenetic distance is calculated using cophenetic distance, and the cophenetic function in R {stats} (R Core Team 2018). All results in table S3 show the mean result from 1000 phylogenies. Here we show the results of all these tests for all terminologies present within each language family. However, we only consider results viable if the terminology consists of more than 10% of the overall sample. All p-values are bonferonni corrected. 
 
-The code for all signal tests can be found in file analysis/signal-tests.R. 
-This file comes with helper functions `analysis/signal-functions` & `analysis/mantel-functions` for the D-statistic and Mantel tests respectively. 
+The code for all signal tests can be found in file `analysis/signal-tests.R`. This file comes with helper functions `analysis/signal-functions` & `analysis/mantel-functions` for the D-statistic and Mantel tests respectively. 
 
 ```{r signal-table, results='asis'}
 signal_files = list.files('results/signal-results/', 
@@ -163,19 +159,20 @@ print(
 
 # Ancestral state
 ## MCMC review
-Ancestral state reconstruction allows us to estimate the probability of a particular terminology at the root of each language phylogeny, as well as estimating the patterns of change between each state. We perform Bayesian reversible-jump MCMC ancestral reconstructions kinship terminologies using BayesTraits V 3.0 Multistate (Pagel and Meade 2017). The advantage of the MCMC approach over a maximum likelihood approach is that it allows the result to be integrated over the sample of trees. Multistate uses a posterior of phylogenies to estimate the probability of each terminology present in the taxa at the phylogeny root, and an estimation of the rate (Q) matrix. The reversible-jump approach searches the model space for an optimal solution by dynamically setting some rate parameters (i.e. transitions from one state to another) to zero. This results in searching the model space where we are confident transition rates are non-zero. The Q matrix shows the likelihood of changing from any state to any other. MCMC chains were run for 10^9^ iterations, sampling every 50 000 iterations with a burn-in of 10 000 iterations, to give a posterior sample of 19 999. Each analysis ran three times to test consistent MCMC convergence using the Gelman-Rubin diagnostic (Gelman and Rubin 1992). Due to uncertainty in the reconstruction of the Bantu ancestral state, each possible taxa was fossilized as the root to estimate likelihoods. We calculate pairwise Bayes factors (BF) to assess the evidence for each response. BF < 2 indicates weak evidence, > 2 positive evidence, 5-10 strong evidence, and >10 very strong evidence. This involves the same process as above, but forcing the model to assume an ancestral state and using model comparison to determine the most likely ancestral state. 
+Ancestral state inference allows us to estimate the probability of a particular terminology at the root of each language phylogeny, as well as estimating the patterns of change between each state. We perform Bayesian reversible-jump MCMC ancestral state inference kinship terminologies using BayesTraits V 3.0 Multistate (Pagel and Meade 2017). The advantage of the MCMC approach over a maximum likelihood approach is that it allows the result to be integrated over the sample of trees. Multistate uses a posterior of phylogenies to estimate the probability of each terminology present in the taxa at the phylogeny root, and an estimation of the rate (Q) matrix. The reversible-jump approach searches the model space for an optimal solution by dynamically setting some rate parameters (i.e. transitions from one state to another) to zero. This results in searching the model space where we are confident transition rates are non-zero. The Q matrix shows the likelihood of changing from any state to any other. MCMC chains were run for 10^9^ iterations, sampling every 50 000 iterations with a burn-in of 10 000 iterations, to give a posterior sample of 19 999. Each analysis ran three times to test consistent MCMC convergence using the Gelman-Rubin diagnostic (Gelman and Rubin 1992). Due to uncertainty in the inference of the Bantu ancestral state, each possible taxa was fossilized as the root to estimate likelihoods. We calculate pairwise Bayes factors (BF) to assess the evidence for each response. BF < 3 indicates weak evidence, >3 positive evidence, and >10 very strong evidence. This involves the same process as above, but forcing the model to assume an ancestral state and using model comparison to determine the most likely ancestral state. 
 
-```{r ancstate-mcmc, results='asis'}
+```{r ancstate-mcmc, results='asis', warning=FALSE}
 folders = paste0('results/anc-state/', c('austronesian', 'bantu', 'utoaztecan'))
 gelmanrubin_table = matrix(NA, ncol = 2, nrow = 3, 
                            dimnames = list(basename(folders), 
                                            c("Point est.", "Upper C.I.")))
 for(f in folders){
   files = list.files(path = f, pattern = "*.Log.txt", full.names = TRUE)
-  logs = map(files, read.bayestraits)
+  logs = map(files, bt_read.log)
   
   roots = map(logs, function(l){
-    root_cols = str_detect(colnames(l), "(^Lh)|(^Root)")
+    root_cols = str_detect(colnames(l), 
+                           "(^Lh)|(^Root)|(^Global Rate)")
     root = l[,root_cols] %>% colMeans()
     round(root, 3)
   }) %>% 
@@ -244,14 +241,16 @@ lh_table = matrix(NA, ncol = length(bantu_kincodes), nrow = 4,
 
 for(k in bantu_kincodes){
   idx = str_detect(files, as.character(k))
-  logs = map(files[idx], read.bayestraits)
+  logs = map(files[idx], bt_read.log)
  
   all_mcmc = mcmc.list(map(logs, function(x) as.mcmc(x$Lh)))
   d1 = gelman.diag(all_mcmc)
   gelmanrubin_table[k,] = d1$psrf
   
   idx = str_detect(stones_files, as.character(k))
-  stones = map(stones_files[idx], read.stones) %>% 
+  stones = map(stones_files[idx], bt_read.stones) 
+  
+  stones = lapply(stones, function(s) s$marginal_likelihood) %>% 
     unlist()
   
   lh_table[,k] = c(stones, harmonic.mean(stones))
@@ -306,7 +305,8 @@ print(
     kable_styling(bootstrap_options = c("striped", "bordered"))
 )
 
-files = list.files('results/transition-rates/', pattern = ".csv", full.names = TRUE)
+files = list.files('results/transition-rates/', 
+                   pattern = "-st.csv", full.names = TRUE)
 for(f in files){
   t = read.csv(f)
   colnames(t) = c("transition", 1:(ncol(t)-2), "Z")
@@ -341,7 +341,7 @@ for(f in files){
 Previous research performed by Guillon and Mace, using similar methods, found support for a Hawaiian root, with some evidence of an Iroquoian root within the Bantu langauge family. This is the inverse of our result, which found most support for an Iroquoian root, with some support for Hawaiian. This discrepancy is concerning considering the terminological data for both analysis come from the same source. The analysis here uses a more recently developed phylogeny, but more importantly, Guillon and Mace include missing data, where we exclude it. We re-analysed our data including missing data and found no change in our previous conclusions. Suggesting that the improved phylogeny is driving the change in results. Efforts were made to contact the authors to make more direct comparisons, but with no response. 
 
 ```{r results='asis'}
-logs = read.bayestraits('results/anc-state/guillon-mace-replication/output/18-Dec-2017-12_08.Log.txt')
+logs = bt_read.log('results/anc-state/guillon-mace-replication/output/18-Dec-2017-12_08.Log.txt')
 
 anc_cols = str_detect(colnames(logs), "Root")
 
@@ -422,7 +422,7 @@ for(i in seq_along(m$job)){
   
   # load the files
   logs = map(list(f1,f2,f3), 
-             function(f) map(f, read.bayestraits))
+             function(f) map(f, bt_read.log))
   
   if(!all(map(logs, length) == 2)) next # still need to finish up some results 
   # skip for now. 
@@ -453,9 +453,12 @@ for(i in seq_along(m$job)){
   idx = str_detect(stones_3, hypotheses)
   s3 = stones_3[idx] 
   
-  s1 = lapply(s1, read.stones)
-  s2 = lapply(s2, read.stones)
-  s3 = lapply(s3, read.stones)
+  s1 = lapply(s1, bt_read.stones) %>%
+    lapply(., function(s) s$marginal_likelihood)
+  s2 = lapply(s2, bt_read.stones) %>%
+    lapply(., function(s) s$marginal_likelihood)
+  s3 = lapply(s3, bt_read.stones) %>%
+    lapply(., function(s) s$marginal_likelihood)
 
   stone_logs = list(s1,s2,s3)
   
@@ -515,7 +518,7 @@ for(i in seq_along(m$job)){
 }
 ```
 
-### Bantu node 70 Reconstruction
+### Bantu node 70 state inference
 
 Here we re-construct node 70 within the Bantu tree, to confirm the hypotheses that the presence of both Iroquois terminologies and a preference for cross-cousin marriage existed at this point.
 
@@ -524,7 +527,7 @@ Table 1 in the main text shows that the dependent model is already preferred, so
 The graph clearly shows the presence of both traits being present here is the most likely option, with approximately 0.77 probability. This probability drops to around 0.5 on the ancestral node. 
 
 ```{r}
-dep = read.bayestraits('results/co-evolutionary/bantu-node70/bantu-iroquois-cross.cousinmarriage.preferred-70recon-dep1.Log.txt')
+dep = bt_read.log('results/co-evolutionary/bantu-node70/bantu-iroquois-cross.cousinmarriage.preferred-70recon-dep1.Log.txt')
 
 idx_dep = str_detect(colnames(dep), "RecNode")
 hist_data = dep[,idx_dep] %>% gather() 
@@ -545,10 +548,10 @@ Some of the hypotheses did not converge satisfactorily despite passing the Gelma
 There is evidence of two solutions in this model. The most likely model has a likelihood of ~69 (model 1), and a second with a likelihood of ~76 (model 2). The ancestral states are similar, but model 1 shows changes are occurring approximately half as fast as model 2. Under model 1 changes from Crow terminologies to not Crow would occur 200 times every ten years, which seems unlikely. Therefore, we qualitatively choose model 2 as the most likely model. This means that the likelihood should approximately be -76, which is what the stepping stone sampler chose, therefore not effecting our results. 
 
 ```{r echo = FALSE}
-indep = read.bayestraits('results/co-evolutionary/run-1/austronesian-crow-matri.anvunclocalresidence-indep1.Log.txt')
+indep = bt_read.log('results/co-evolutionary/run-1/austronesian-crow-matri.anvunclocalresidence-indep1.Log.txt')
 plot.mcmcchain(indep)
 
-stone = read.stones('results/co-evolutionary/run-1/austronesian-crow-matri.anvunclocalresidence-indep1.Stones.txt')
+stone = bt_read.stones('results/co-evolutionary/run-1/austronesian-crow-matri.anvunclocalresidence-indep1.Stones.txt')
 
 idx = indep$Lh > -75
 
@@ -576,7 +579,7 @@ rates %>%
 The independent model of this hypotheses is multimodel, as shown in the figure below. Increasing the burn-in and chain length did not increase the preference of one model over the other. We look at the average model for each of these peaks, defining model 1 as the model with a likelihood of approximately -58, and model 2 with a likelihood of approximately -63. The models show similar ancestral states, but a large difference in the rate of change. Beta1 and Beta2 for model 1 are exceptionally high. Beta1 the rate at which societies change from Crow to not Crow is approximately 986 times per 100 years, and Beta2 indicates the rate at which societies loose matrilineal descent is approximately 798 times per 100 years. These rates seem improbable, and lead us to qualitatively prefer model 2. The stepping stone sampler has already shown a value close to this peak is preferable, and this has no change to our conclusion that these two phenomena show signs of co-evolution. 
 
 ```{r echo = FALSE}
-indep = read.bayestraits('results/co-evolutionary/run-1/austronesian-crow-matrilineal-indep1.Log.txt')
+indep = bt_read.log('results/co-evolutionary/run-1/austronesian-crow-matrilineal-indep1.Log.txt')
 plot.mcmcchain(indep)
 
 idx = indep$Lh > -61
@@ -606,10 +609,10 @@ rates %>%
 This hypotheses is multi-modal and running the chain longer made no decision between the two. In this instance we have two competeing solutions, model one suggests it is likely that Eskimo type is the most likely ancestral state, but is split between whether monogamy was also present. And model two suggests that an Eskimo system was not the ancestral state, and neither was monogamy. Other analysis in this paper suggests that Eskimo is very likely to be the ancestral state in Austronesia, so we take model one as the most likely model. The stepping stone sampler already prefers this model, therefore this makes no changes to our results. 
 
 ```{r echo = FALSE}
-indep = read.bayestraits('results/co-evolutionary/run-1/austronesian-eskimo-monogamy-indep1.Log.txt')
+indep = bt_read.log('results/co-evolutionary/run-1/austronesian-eskimo-monogamy-indep1.Log.txt')
 plot.mcmcchain(indep)
 
-stones = read.stones('results/co-evolutionary/run-1/austronesian-crow-matrilineal-indep1.Stones.txt')
+stones = bt_read.stones('results/co-evolutionary/run-1/austronesian-crow-matrilineal-indep1.Stones.txt')
 
 idx = indep$Lh > -70
 
@@ -637,3 +640,4 @@ Since this study has numerous hypothesis tests, it is important we address the s
 
 The primary reason for this not being a problem is that all our hypotheses were set out _a priori_. They are not the result of comparing all social variables against all binary kinship terminologies, and make a tiny portion of those that are possible. All hypotheses are established in theory and many had been previously tested. 
 
+# References
