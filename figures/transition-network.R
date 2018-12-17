@@ -5,8 +5,9 @@ library(paletteer)
 library(stringr)
 source('figures/figure-helper.R')
 
-kincodes = read.csv('data/kincodes', header = FALSE)
+kincodes = read.csv('data/kincodes', header = FALSE, stringsAsFactors = FALSE)
 kincodes$cols = kinship_to_colours(kincodes$V1)
+kincodes = kincodes[c(-2,-8),]
 
 files = list.files('results/transition-rates/', pattern = ".csv", full.names = TRUE)
 transition_matrix = list()
@@ -37,13 +38,14 @@ transition_matrix = do.call(rbind, transition_matrix)
 set.seed(123)
 data = data.frame(
   factor = rep(kincodes$V2, each = 10),
-  x = rnorm(80), 
-  y = runif(80, min = 79, max = 81)
+  x = rnorm(60), 
+  y = runif(60, min = 79, max = 81)
 )
 data = left_join(data, kincodes, by = c("factor" = "V2"))
 
 # Initialize the plot.
-cols = paletteer_d('palettetown', palette = 'quilava', n = 4)[2:4]
+#cols = paletteer_d('palettetown', palette = 'quilava', n = 4)[2:4]
+cols = c("black", "blue", "gray")
 settings = data.frame(family = c("austronesian", "bantu", "uto"),
                       cols = cols,
                       height = c(5, 7.5, 10),
@@ -51,6 +53,7 @@ settings = data.frame(family = c("austronesian", "bantu", "uto"),
                       arrival = c(0.15, 0.25, 0.35))
 rownames(settings) = settings$family
 
+pdf('figures/transition-network.pdf')
 par(mar = c(1, 1, 1, 1))
 circos.par("points.overflow.warning" = FALSE)
 circos.initialize(factors = data$factor, xlim = c(0, 1))
@@ -58,7 +61,7 @@ circos.initialize(factors = data$factor, xlim = c(0, 1))
 circos.track(ylim = c(0, 1), panel.fun = function(x, y) {
   pos = circlize:::polar2Cartesian(circlize(CELL_META$xcenter, CELL_META$ycenter))
   circos.text(CELL_META$xcenter, CELL_META$cell.ylim[1] + uy(2, "mm"),
-              CELL_META$sector.index, facing = "bending.inside", niceFacing = TRUE, cex = 0.6)
+              CELL_META$sector.index, facing = "bending.inside", niceFacing = TRUE, cex = 1.5)
 }, bg.border = 1, track.height = 0.15, bg.col = unique(data$cols))
 
 add = 0
@@ -70,7 +73,7 @@ for(i in 1:nrow(transition_matrix)){
   transition = transition_matrix$transition[i] %>% 
     str_extract_all("[0-9]") %>% 
     unlist()
-  terminologies = kincodes[as.numeric(transition),"V2"]
+  terminologies = kincodes[(transition),"V2"]
   
   if(family != transition_matrix$family[i])
     add = 0
@@ -82,13 +85,13 @@ for(i in 1:nrow(transition_matrix)){
   arrive = settings[family,"arrival"] %>% as.numeric()
   rate = 1 - transition_matrix$percentage[i]
 
-  if(rate > .95){
-    print(terminologies)
-    print(transition)
+  if(rate > .9){
     circos.link(sector.index1 = terminologies[1], start + add, sector.index2 = terminologies[2], arrive + add,
-                col = colour, border = "black", lwd = rate * 5, arr.width = 0.4, h = height,
+                col = colour, lwd = rate * 5, arr.width = 0.4, h = height,
                 directional = 1)
     add = add + 0.05
+    print(rate)
   }
 }
+dev.off()
 

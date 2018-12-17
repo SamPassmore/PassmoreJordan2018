@@ -4,9 +4,11 @@ author: "Sam Passmore & Fiona Jordan"
 date: "01/08/2018"
 output:
   html_document:
-    toc: true
-    toc_float: true
-    number_sections: true
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes
 bibliography: bibliography.bib
 ---
 
@@ -89,13 +91,21 @@ kable(s, col.names =
         c("terminology", "question code", "value code", "social structure", 
           "question code", 'value code', 'AN counts', 'BT counts', 'UA counts'), 
       caption = "Table S2: Data coding taken from D-PLACE & Co-evolutionary analyses data counts", format = 'html') %>% 
-  kable_styling()
+ kable_styling(full_width = TRUE)
+
 ```
 
 ### Co-evolutionary hypotheses and references
 
 Here we show the the location of the original hypotheses of social structure and kinship terminologies. 
 
+```{r, results='asis', message = FALSE}
+quotes = read.csv('figures/hypothesis-table.csv')
+
+kable(quotes, 
+      caption = "Table S3: hypotheses with quotes, references and page numbers", format = 'html') %>% 
+ kable_styling(full_width = TRUE)
+```
 
 
 ## Phylogenies 
@@ -122,8 +132,8 @@ results = do.call(rbind, results_lang)
 # make the names nice
 results$X = str_remove(results$X, "name")
 
-caption = "Table S3: Signal tests for each terminology within each langauge family. Columns 2 & 3 indicate the presence and absence of a terminology. Columns 4 to 6 are outputs from the D-statistic test. Columns 7 to 21 are output from Mantel tests."
-c.names = c("Terminology", "Absent", "Present", "D", "Prob. Brownian", "Prob. Random", "Z-stat", "p-value","corrected-p", "Z-stat", "p-value", "corrected-p", "Z-stat", "p-value", "corrected-p", "Statistic", "p-value", "corrected-p", "Statistic", "p-value", "corrected-p")
+caption = "Table S3: Signal tests for each terminology within each langauge family. Columns 2 & 3 indicate the presence and absence of a terminology. Columns 4 to 6 are outputs from the D-statistic test. Columns 7 to 21 are output from Mantel tests. P-values and bonferonni corrected values shown"
+c.names = c("Terminology", "Absent", "Present", "D", "Prob. Brownian", "Prob. Random", "Z-stat", "p-value","bonf-p", "Z-stat", "p-value", "bonf-p", "Z-stat", "p-value", "bonf-p", "Statistic", "p-value", "bonf-p", "Statistic", "p-value", "bonf-p")
 
 results = results[,c(1:12,16:18,13:15,19:21)]
 
@@ -420,14 +430,15 @@ for(i in seq_along(m$job)){
   dep_transitions = map(logs, function(l){
     l = l[[1]]
     transition_cols = str_detect(colnames(l), "(^q)|(^(alpha|beta))")
-    transition = l[,transition_cols] %>% colMeans()
+    #transition = l[,transition_cols] %>% colMeans()
+    transition = l[,transition_cols] %>% apply(., 2, median)
     round(transition, 3)
   })
   
   indep_transitions = map(logs, function(l){
     l = l[[2]]
     transition_cols = str_detect(colnames(l), "(^q)|(^(alpha[1,2]|beta[1,2]))")
-    transition = l[,transition_cols] %>% colMeans()
+    transition = l[,transition_cols] %>% apply(., 2, median)
     round(transition, 3)
   })
   
@@ -502,6 +513,26 @@ for(i in seq_along(m$job)){
     )
   }
 }
+```
+
+### Bantu node 70 Reconstruction
+
+Here we re-construct node 70 within the Bantu tree, to confirm the hypotheses that the presence of both Iroquois terminologies and a preference for cross-cousin marriage existed at this point.
+
+Table 1 in the main text shows that the dependent model is already preferred, so here we only look at the dependent model. The figure below shows the likelihood of each possibility. Top left: Absence of both Iroquois terminology & a preference for cross-cousin marriage. Top right: Absence of cross-cousin marriage and the presence of cross-cousin marriage preference. Bottom right: Both Iroquoian terminologies and cross-cousin marriage preferences are present. Bottom left: presence of an Iroquoian terminology, and absence of a cross-cousin marriage preference. 
+
+The graph clearly shows the presence of both traits being present here is the most likely option, with approximately 0.77 probability. This probability drops to around 0.5 on the ancestral node. 
+
+```{r}
+dep = read.bayestraits('results/co-evolutionary/bantu-node70/bantu-iroquois-cross.cousinmarriage.preferred-70recon-dep1.Log.txt')
+
+idx_dep = str_detect(colnames(dep), "RecNode")
+hist_data = dep[,idx_dep] %>% gather() 
+ggplot(gather(hist_data), aes(value)) + 
+  geom_histogram(bins = 10) + 
+  facet_wrap(~key) +
+  ggtitle("Bantu 70: Dependent model") + 
+  xlab("Probability") + ylab("Frequency")
 ```
 
 ### Multi-solution models
@@ -599,4 +630,10 @@ rates %>%
   kable(format = 'html', caption = "Independent rates for model 1 and model 2", digits = 3) %>%
       kable_styling()
 ```
+
+## Multiple comparisons
+
+Since this study has numerous hypothesis tests, it is important we address the statistical problem of multiple comparisons. The multiple comparison problem says that the more hypotheses tested simultaneously, the more likely an erroneous error is to occur. There is strong debate in the literature on whether this is a problem here, but we argue that it is not.
+
+The primary reason for this not being a problem is that all our hypotheses were set out _a priori_. They are not the result of comparing all social variables against all binary kinship terminologies, and make a tiny portion of those that are possible. All hypotheses are established in theory and many had been previously tested. 
 

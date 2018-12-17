@@ -1,6 +1,7 @@
 library(excdr)
 library(stringr)
 library(dplyr)
+library(tidyr)
 
 modelstring_frequencies = function(results){
   # get column names
@@ -44,6 +45,14 @@ plot(tail(an$Lh, 10000), type = 'l')
 an_ms = modelstring_frequencies(tail(an, 10000))
 write.csv(an_ms, 'results/transition-rates/austronesian.csv')
 
+# get the rates
+idx_rates = str_detect(colnames(an), "q")
+hist_data = an[,idx_rates] %>% gather() 
+ggplot(gather(hist_data), aes(value)) + 
+  geom_histogram(bins = 10) + 
+  facet_wrap(~key, scales = 'free_x')
+apply(an[,idx_rates], 2, summary)
+
 # top 10 frequent models 
 an$`Model string` %>% 
   table() %>% 
@@ -60,27 +69,14 @@ bt$`Model string` %>%
   sort(decreasing = TRUE) %>%
   head(., 10)
 
-ua = read.bayestraits('results/anc-state/utoaztecan/26-Oct-2017-09_54.Log.txt')
-plot(ua$Lh, type = 'l')
-ua_ms = modelstring_frequencies(tail(ua, 10000))
+#ua = read.bayestraits('results/anc-state/utoaztecan/26-Oct-2017-09_54.Log.txt')
+ua = bt_read.log('../terminology-anc-state/bt-output/utoaztecan/.Log.txt')
+plot(ua$output$Lh, type = 'l')
+ua_ms = modelstring_frequencies(tail(ua$output, 10000))
 write.csv(ua_ms, 'results/transition-rates/utoaztecan.csv')
 
 ua$`Model string` %>% 
   table() %>% 
   sort(decreasing = TRUE) %>%
   head(., 10)
-
-
-# ie = read.bayestraits('bt-output/indoeuropean/20-Jul-2018-10_00.Log.txt')
-# plot(ie$Lh, type = 'l')
-# ie_ms = modelstring_frequencies(tail(ie, 1000))
-# write.csv(ie_ms, 'transition-rates/ie.csv')
-
-
-ie$`Model string` %>% 
-  table() %>% 
-  sort(decreasing = TRUE) %>%
-  head(., 10)
-
-## merge all together
 
