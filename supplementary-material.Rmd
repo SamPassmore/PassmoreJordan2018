@@ -280,7 +280,7 @@ Bayes factor calculations show that there is some evidence for a Iroquoian root 
 ```{r fossilized-bantu-bf, results='asis'}
 lh = lh_table[4,]
 bf = outer(lh, lh, function(x,y) 2 * (x - y))
-bf = data.frame(terminology = colnames(bf) , bf = bf["Iroquois",])
+bf = data.frame(terminology = colnames(bf) , bf = bf[,"Iroquois"])
 colnames(bf) = c("terminology", "Bayes' Factor")
 
 print(
@@ -445,19 +445,19 @@ for(i in seq_along(m$job)){
   # find the right stones files
   # this is one for the dependent and one for the independent model
   idx = str_detect(stones_1, hypotheses)
-  s1 = stones_1[idx]
+  s1_f = stones_1[idx]
   
   idx = str_detect(stones_2, hypotheses)
-  s2 = stones_2[idx]
+  s2_f = stones_2[idx]
   
   idx = str_detect(stones_3, hypotheses)
-  s3 = stones_3[idx] 
+  s3_f = stones_3[idx] 
   
-  s1 = lapply(s1, bt_read.stones) %>%
+  s1 = lapply(s1_f, bt_read.stones) %>%
     lapply(., function(s) s$marginal_likelihood)
-  s2 = lapply(s2, bt_read.stones) %>%
+  s2 = lapply(s2_f, bt_read.stones) %>%
     lapply(., function(s) s$marginal_likelihood)
-  s3 = lapply(s3, bt_read.stones) %>%
+  s3 = lapply(s3_f, bt_read.stones) %>%
     lapply(., function(s) s$marginal_likelihood)
 
   stone_logs = list(s1,s2,s3)
@@ -473,7 +473,7 @@ for(i in seq_along(m$job)){
   
   table = cbind(dep_table, indep_table)
   table = rbind(table, round(colMeans(table), 3))
-  BF = 2 * (s1[[1]] - s1[[2]])
+  BF = 2 * (s1[[2]] - s1[[1]])
   table[4,1] = "Mean"
   table[5,] = c("BF", round(BF, 3), rep("", 13))
 
@@ -540,7 +540,7 @@ ggplot(gather(hist_data), aes(value)) +
 
 ### Multi-solution models
 
-Some of the hypotheses did not converge satisfactorily despite passing the Gelman-Rubin tests. These often are switching between two possible solutions. Extending burn-in to 2332763595 iterations had no effect of convergence. Therefore we conclude that these two solutions are equally likely and we explore the impact of these here. 
+Some of the hypotheses did not converge satisfactorily despite passing the Gelman-Rubin tests. These often are switching between two possible solutions. Extending burn-in to 2332763595 iterations had no effect of convergence (this is the longest run time allowed by server constraints). Therefore we conclude that these two solutions are equally likely and we explore the impact of these here. 
 
 #### Austronesian
 ###### Crow & Matri-anvunculocal residence

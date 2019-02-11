@@ -9,7 +9,7 @@ kincodes = read.csv('data/kincodes', header = FALSE, stringsAsFactors = FALSE)
 kincodes$cols = kinship_to_colours(kincodes$V1)
 kincodes = kincodes[c(-2,-8),]
 
-files = list.files('results/transition-rates/', pattern = ".csv", full.names = TRUE)
+files = list.files('results/transition-rates/', pattern = "-st.csv", full.names = TRUE)
 transition_matrix = list()
 for(i in seq_along(files)){
   t = read.csv(files[i])
@@ -53,7 +53,7 @@ settings = data.frame(family = c("austronesian", "bantu", "uto"),
                       arrival = c(0.15, 0.25, 0.35))
 rownames(settings) = settings$family
 
-pdf('figures/transition-network.pdf')
+pdf('figures/transition-network2.pdf')
 par(mar = c(1, 1, 1, 1))
 circos.par("points.overflow.warning" = FALSE)
 circos.initialize(factors = data$factor, xlim = c(0, 1))
