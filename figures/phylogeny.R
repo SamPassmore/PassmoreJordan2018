@@ -1,40 +1,54 @@
 library(phytools)
 library(ape)
+library(stringr)
+library(dplyr)
+
+source('figures/figure-helper.R')
 
 # here is code to create mirrored phylogenies with tips plotted
 text_cex = 0.6
 
 # read data + trees
-d = read.table('data/co-evo/austronesian-iroquois-cross.cousinmarriage.preferred.btdata')
-t = read.nexus('data/co-evo/austronesian-iroquois-cross.cousinmarriage.preferred.bttrees')
-tree = t[[1]]
-tree = ladderize(tree) # make tree look nice
+con_trees = list(
+  # Austronesian
+  read.nexus('https://raw.githubusercontent.com/D-PLACE/dplace-data/master/phylogenies/gray_et_al2009/summary.trees'),
+  # Bantu
+  read.nexus('https://raw.githubusercontent.com/D-PLACE/dplace-data/master/phylogenies/grollemund_et_al2015/summary.trees'),
+  # Uto Aztecan
+  read.nexus('~/Google Drive/UniWork/varikin/language-trees/uto-aztecan/utoaztecan-covarion-relaxed.mcct.trees')
+)
+con_trees = lapply(con_trees, ladderize)
 
-# Red if present, otherwise white
-d[,2:3] = apply(d[,2:3], 2, function(c) ifelse(c == 1, "#E41A1C", "white"))
+files = list.files('data/co-evo/', pattern = '*.btdata', full.names = TRUE)
+uto_link = read.csv('data/uto_link.csv')
 
 # save as pdf
-pdf('figures/austronesian-iroquoi-crosscousinmarriage.preferred.pdf')
-rownames(d) = d[,1]
-d = d[tree$tip.label,]
-par(mar = rep(0, 4))
-# layout organise the plot into thirds
-layout(matrix(1:3,1,3),widths=c(0.39,0.20,0.39))
-# plot the first tree + labels
-plot(tree,lwd=6, show.tip.label = FALSE, no.margin = TRUE)
-tiplabels(node = d[,2], pch = 21, bg = d[,2], col = "black", cex = 1.5)
-# move to the next plot
-plot.new()
-# size that plot appropriately
-plot.window(xlim=c(-0.1,0.1),
-            ylim=get("last_plot.phylo",envir=.PlotPhyloEnv)$y.lim)
-par(cex=0.6)
-# plot the taxa names
-text(rep(0,length(tree$tip.label)),1:Ntip(tree),
-     gsub("_"," ", rev(tree$tip.label)),font=1)
-# plot the thrid tree in new section
-plot(tree,lwd=6, show.tip.label = FALSE, direction = 'leftwards', no.margin = TRUE)
-tiplabels(node = d[,2], pch = 21, bg = d[,3], col = "black", cex = 1.5)
+pdf('figures/coevolution-plots.pdf')
+for(f in files){
+  d = read.table(f)
+  rownames(d) = d[,1]
+  
+  title = f %>% 
+    basename(.) %>%
+    tools::file_path_sans_ext(.)
+  
+  if(str_detect(f, "austronesian")){
+    td = geiger::treedata(con_trees[[1]], d)
+    mirrored_phylogeny(td$data, td$phy, title = title)
+  }
+    
+  if(str_detect(f, "bantu")){
+    td = geiger::treedata(con_trees[[2]], d)
+    mirrored_phylogeny(td$data, td$phy, title = title)
+  }
+    
+  if(str_detect(f, "uto")){
+    d_merge = left_join(d, uto_link, by = c("V1" = "sam_taxon"))
+    d = d_merge %>% select(taxon, V2, V3)
+    mirrored_phylogeny(d, con_trees[[3]], title = title)
+  }
+    
+}
 dev.off() # save
 
 # Second is plots with two taxa points
