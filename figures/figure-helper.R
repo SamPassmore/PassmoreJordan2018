@@ -33,7 +33,7 @@ mirrored_phylogeny = function(d, tree, title = ""){
   par(cex=0.6)
   # plot the taxa names
   text(rep(0,length(tree$tip.label)),1:Ntip(tree),
-       gsub("_"," ", tree$tip.label[tree$edge[tree$edge<tree$Nnode]]),font=1)
+       gsub("_"," ", tree$tip.label[tree$edge[tree$edge<=length(tree$tip.label)]]),font=1)
   # plot the thrid tree in new section
   plot(tree,lwd=6, show.tip.label = FALSE, direction = 'leftwards', no.margin = TRUE)
   tiplabels(node = d[,2], pch = 21, bg = d[,3], col = "black", cex = 1.5)

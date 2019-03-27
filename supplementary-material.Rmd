@@ -292,6 +292,25 @@ print(
 )
 ```
 
+## PMP in Austronesia
+
+Here we reconstruct the PMP state in Austronesian using the RecNode command in BayesTraits. All other settings remain the same as the Austronesian model. 
+
+```{r}
+l = bt_read.log('results/anc-state/pmp/pmp-model.Log.txt')
+recnode = l[,44:49] %>% colMeans()
+
+print(
+  recnode %>% 
+    kable(format = 'html', 
+          caption = "Ancestral state for PMP",
+          digits = 3, row.names = TRUE, 
+          col.names = c("Probability")) %>%
+    kable_styling(bootstrap_options = c("striped", "bordered"))
+)
+```
+
+
 ## Transition rates
 
 RJ ancestral state analysis also estimates the rate of transition between kinship terminological types. The model constrains the number of parameters estimated, forcing some parameters to be zero, and then estimates and appropriate number of parameters for accurately represent the model. By looking at which parameters are set to zero across the MCMC chain, we can see which transition rates the model believes to be important. We consider transition rates to be important if they are set to zero in less than 1% of models. That is, the model considered these transitions important in 99% of the iterations. Transition rates are coded by numerical codes, which are:
