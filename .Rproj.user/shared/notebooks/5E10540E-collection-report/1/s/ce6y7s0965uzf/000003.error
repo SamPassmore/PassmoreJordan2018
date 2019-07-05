@@ -1,1 +1,0 @@
-{"frames":[],"message":"Error in plot.map(\"world\", center = 200, col = \"grey\", bg = \"white\", fill = TRUE,  : \n  could not find function \"plot.map\"\n"}

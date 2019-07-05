@@ -1,7 +1,0 @@
-"0","a2 = all[,c(""collection.x"", ""collection.y"")]"
-"0","a3 = !is.na(a2)"
-"0","sum(rowSums(a3) == 2)"
-"1","[1]"
-"1"," 50"
-"1","
-"
