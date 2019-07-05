@@ -1,0 +1,6 @@
+# readme
+
+Files:
+- create-location-files: get locations for each society from d-place
+- helper: helper functions for getting locations
+- location-and-taxanames: get locations and taxanames from dplace

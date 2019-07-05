@@ -1,0 +1,10 @@
+# README
+
+Folders:
+- anc-state: contains bayestraits input data and tree files, and location data for all language families; 
+- co-evo: contains bayestriats input data and tree files for all hypothesis & language families
+
+Files:
+- kincodes: linking numerical codes to kin terminologies
+- uto_link.csv: linking taxa names in phylogenies to glottocodes
+- uto-tiplabels: nice tip labels to the uto aztecan tree 

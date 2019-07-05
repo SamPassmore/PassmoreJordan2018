@@ -1,0 +1,8 @@
+# README
+
+Files: 
+-mean: mean signal results across 1000 phylogenies
+-median: median signal results across 1000 phylogenies
+-sd: std. deviation of results across 1000 phylogenies
+
+- table1: summary table of signal results 

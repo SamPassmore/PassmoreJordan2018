@@ -43,7 +43,7 @@ an = read.bayestraits(filename = 'results/anc-state/austronesian/scale_trees1.Lo
 plot(tail(an$Lh, 10000), type = 'l')
 # seems fine
 an_ms = modelstring_frequencies(tail(an, 10000))
-write.csv(an_ms, 'results/transition-rates/austronesian-st.csv')
+#write.csv(an_ms, 'results/transition-rates/austronesian-st.csv')
 
 # get the rates
 idx_rates = str_detect(colnames(an), "q")

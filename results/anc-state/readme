@@ -1,0 +1,8 @@
+# README
+
+Folder:
+- austronesian, bantu, utoaztecan: bayestraits output files for standardized branch lengths results
+- austronesian_notscales, bantu_notscaled, utoaztecan_notscales: bayestraits output files for unstandardized branch length results
+- fossilized_bantu: fossilized ancestral state of bantu to determine anc-state
+- guillon-mace-replication: bayestrait output files testing the impact of including missing dat and difference to guillon mace 2017 results.
+- pmp: Reconstruction PMP for comparison with existing ancestral state theories

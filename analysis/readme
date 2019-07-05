@@ -1,0 +1,11 @@
+# README
+
+Files
+- bantu-map-visualisation: this script maps the bantu phylogeny onto Africa to determin the geographical location of ancestral nodes. this was used in exploration of the savannah hypothesis
+- bantu_node70.R: exploring the bayestrait output of the reconstruction of node 70 in the bantu tree under the cross-cous marriage and iroquois hypothesis. 
+- coevo-helper.R: helper functions for the analysis of the co-evolutionary output and visualisation
+- coevo-settings: the settings used in bayestraits for the co-evolutionary models 
+- mantel-functions: functions to run the mantel tests and summarize output
+- signal-functions: functions to run the d-statistic test
+- signal-tests: script to run all signal tests (mantel, partial mantel, and d-statistic)
+- transition-rates.R: this script takes the transition-rate information from the bayestraits files and calculates their importance based on the criteria of them persisting in 95% of models. 

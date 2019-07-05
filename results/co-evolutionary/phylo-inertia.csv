@@ -1,0 +1,44 @@
+﻿hypothesis,judgement,Most likely ancestral state,Probability of ancestral state
+austronesian-crow-high.polygyny,Highly unlikely,"0,0",0.99
+austronesian-crow-polygyny,Unlikely,"0,1",0.64
+austronesian-eskimo-absenceofcousinmarriage.permitted,Unlikely,"1,1",0.42
+austronesian-eskimo-absenceofcousinmarriage.preference,Highly unlikely,"1,0",0.81
+austronesian-eskimo-bi.linealdescent,Highly unlikely,"1,0",0.91
+austronesian-eskimo-neo.localresidence,Highly unlikely,"1,0",0.79
+austronesian-eskimo-nuclear.families,Likely,"1,1",0.74
+austronesian-hawaiian-absenceofcousinmarriage.permitted,Unlikely,"1,1",0.43
+austronesian-hawaiian-absenceofcousinmarriage.preference,Unlikely,"1,0",0.52
+austronesian-hawaiian-bi.linealdescent,Unlikely,"0,0",0.44
+austronesian-hawaiian-bi.localextendedfamily,Unlikely,"1,1",0.3
+austronesian-hawaiian-bi.localresidence,Highly unlikely,"1,0",0.5
+austronesian-iroquois-exogamy.unilineal.descent,Highly unlikely,"0,0",0.99
+austronesian-iroquois-high.polygyny,Highly unlikely,"0,0",0.99
+austronesian-iroquois-matri.anvunclocalresidence,Highly unlikely,"0,0",0.96
+austronesian-iroquois-polygyny,Highly unlikely,"0,1",0.62
+austronesian-iroquois-uni.linealdescent,Highly unlikely,"0,0",0.92
+bantu-crow-matri.anvunclocalresidence,Highly unlikely,"0,0",0.65
+bantu-crow-matrilineal,Highly unlikely,"0,0",0.68
+bantu-crow-matrilocal,Highly unlikely,"0,0",0.97
+bantu-crow-uni.localresidence,Highly unlikely,"0,1",0.95
+bantu-hawaiian-absenceofcousinmarriage.permitted,Highly unlikely,"0,1",0.879
+bantu-hawaiian-absenceofcousinmarriage.preference,Highly unlikely,"0,0",0.9
+bantu-hawaiian-bi.linealdescent,Highly unlikely,"0,0",0.89
+bantu-hawaiian-bi.localextendedfamily,Highly unlikely,"0,0",0.73
+bantu-hawaiian-bi.localresidence,Highly unlikely,"0,0",0.92
+bantu-iroquois-cross.cousinmarriage.preferred,Highly likely,"1,1",0.51
+bantu-iroquois-exogamy.unilineal.descent,Highly unlikely,"0,0",0.44
+bantu-iroquois-uni.linealdescent,Unlikely,"1,1",0.59
+bantu-iroquois-uni.localresidence,Likely,"1,1",0.5
+bantu-omaha-uni.localresidence,Highly unlikely,"0,1",0.93
+uto-hawaiian-absenceofcousinmarriage.permitted,Unlikely,"1,1",0.98
+uto-hawaiian-absenceofcousinmarriage.preference,Likely,"1,0",0.99
+uto-hawaiian-bi.linealdescent,Highly unlikely,"1,0",0.98
+uto-hawaiian-bi.localextendedfamily,Unlikely,"1,0",0.74
+uto-hawaiian-bi.localresidence,Unlikely,"1,0",0.98
+uto-iroquois-cross.cousinmarriage.permitted,Highly unlikely,"0,0",0.99
+uto-iroquois-cross.cousinmarriage.preferred,Highly unlikely,"0,0",0.99
+uto-iroquois-exogamy.unilineal.descent,Highly unlikely,"0,0",0.99
+uto-iroquois-high.polygyny,Highly unlikely,"0,0",0.99
+uto-iroquois-matri.anvunclocalresidence,Highly unlikely,"0,0",0.95
+uto-iroquois-uni.linealdescent,Highly unlikely,"0,0",0.99
+uto-iroquois-uni.localresidence,Highly unlikely,"0,0",0.49

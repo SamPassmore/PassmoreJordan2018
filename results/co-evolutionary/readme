@@ -1,0 +1,10 @@
+# README
+
+Folders:
+- run-1, -2, -3: Bayestraits output files for 3 independent runs of all co-evolutionary hypothesis
+- bantu-node70: Reconstructions of bantu node 70 in Iroqouis & x-cousin marriage hypothesis
+
+
+Files:
+- phylo-intertia: interpretations of the likelihood of phylogenetic inertia in each hypothesis
+- anc-states: ancestral state of each co-evolutionary hypothesis in the dependent model. 

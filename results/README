@@ -1,0 +1,7 @@
+# README
+
+Folders:
+- anc-state: contains results for ancestral state
+- co-evolutionary: containts results for the co-evolutionary tests
+- signal-results: containts results for signal tests
+- transition-rates: contains results for transition tests. 
