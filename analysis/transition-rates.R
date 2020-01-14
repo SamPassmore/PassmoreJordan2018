@@ -38,12 +38,13 @@ modelstring_frequencies = function(results){
   occurances  
 }
 
-an = read.bayestraits(filename = 'results/anc-state/austronesian/scale_trees1.Log.txt')
+#an = read.bayestraits(filename = 'results/anc-state/austronesian/scale_trees1.Log.txt')
+an = read.bayestraits(filename = 'results/anc-state/austronesian/07-Nov-2019-11_37.Log.txt')
 # check mcmc chain
 plot(tail(an$Lh, 10000), type = 'l')
 # seems fine
 an_ms = modelstring_frequencies(tail(an, 10000))
-#write.csv(an_ms, 'results/transition-rates/austronesian-st.csv')
+write.csv(an_ms, 'results/transition-rates/austronesian.csv')
 
 # get the rates
 idx_rates = str_detect(colnames(an), "q")
@@ -59,10 +60,10 @@ an$`Model string` %>%
   sort(decreasing = TRUE) %>%
   head(., 10)
 
-bt = read.bayestraits('results/anc-state/bantu/scale_trees1.Log.txt')
+bt = read.bayestraits('results/anc-state/bantu/07-Nov-2019-11_38.Log.txt')
 plot(bt$Lh, type = 'l')
 bt_ms = modelstring_frequencies(tail(bt, 10000))
-write.csv(bt_ms, 'results/transition-rates/bantu-st.csv')
+write.csv(bt_ms, 'results/transition-rates/bantu.csv')
 
 bt$`Model string` %>% 
   table() %>% 
@@ -70,10 +71,10 @@ bt$`Model string` %>%
   head(., 10)
 
 #ua = read.bayestraits('results/anc-state/utoaztecan/26-Oct-2017-09_54.Log.txt')
-ua = bt_read.log('results/anc-state/utoaztecan/scale_trees1.Log.txt')
+ua = read.bayestraits('results/anc-state/utoaztecan/07-Nov-2019-11_38.Log.txt')
 plot(ua$Lh, type = 'l')
 ua_ms = modelstring_frequencies(tail(ua, 10000))
-write.csv(ua_ms, 'results/transition-rates/utoaztecan-st.csv')
+write.csv(ua_ms, 'results/transition-rates/utoaztecan.csv')
 
 ua$`Model string` %>% 
   table() %>% 

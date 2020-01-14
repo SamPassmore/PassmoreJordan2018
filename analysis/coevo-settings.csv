@@ -4,7 +4,7 @@ austronesian-crow-matri.anvunclocalresidence,RevJump,ScaleTrees,10,10050000,1000
 austronesian-crow-matrilineal,RevJump,ScaleTrees,10,10050000,1000,50000,10000,,,100,1000,3,,x,x,x,,,,,bi-modal
 austronesian-crow-polygyny,RevJump,ScaleTrees,10,10050000,1000,50000,10000,,,100,1000,3,,x,x,x,,,,,
 austronesian-crow-matrilocal,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,
-austronesian-crow-strict.matrilocal,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,
+austronesian-crow-matrilocal.strict,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,
 austronesian-crow-uni.localresidence,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,
 austronesian-eskimo-absenceofcousinmarriage.permitted,RevJump,ScaleTrees,10,65000000,1000,55000000,10000,,,100,1000,0,,,,,,,,,"bi-modal, but long chains don't resolve this."
 austronesian-eskimo-absenceofcousinmarriage.preference,RevJump,ScaleTrees,10,65000000,1000,55000000,10000,,,100,1000,3,,,,,x,x,x,,
@@ -29,7 +29,7 @@ austronesian-iroquois-uni.localresidence,RevJump,ScaleTrees,10,10050000,1000,500
 bantu-crow-matri.anvunclocalresidence,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,
 bantu-crow-matrilineal,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,
 bantu-crow-matrilocal,RevJump,ScaleTrees,10,10050000,1000,50000,10000,,,100,1000,0,,,,,,,,,
-bantu-crow-strict.matrilocal,RevJump,ScaleTrees,10,10050000,1000,50000,10000,,,100,1000,0,,,,,,,,,
+bantu-crow-matrilocal.strict,RevJump,ScaleTrees,10,10050000,1000,50000,10000,,,100,1000,0,,,,,,,,,
 bantu-crow-uni.localresidence,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,rates difference in the models
 bantu-hawaiian-absenceofcousinmarriage.permitted,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,
 bantu-hawaiian-absenceofcousinmarriage.preference,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,,100,1000,6,,x,x,x,x,x,x,,
@@ -45,7 +45,7 @@ bantu-iroquois-uni.localresidence,RevJump,ScaleTrees,10,10010000,1000,10000,1000
 bantu-omaha-matri.anvunclocalresidence,RevJump,ScaleTrees,10,10010000,1000,10000,10000,y,n,100,1000,6,,x,x,x,x,x,x,,
 bantu-omaha-patrilineal,RevJump,ScaleTrees,10,10010000,1000,10000,10000,y,n,100,1000,6,,x,x,x,x,x,x,,
 bantu-omaha-patrilocal,RevJump,ScaleTrees,10,10010000,1000,10000,10000,y,,100,1000,6,,x,x,x,x,x,x,,
-bantu-omaha-strict.patrilocal,RevJump,ScaleTrees,10,10010000,1000,10000,10000,y,,100,1000,6,,x,x,x,x,x,x,,
+bantu-omaha-patrilocal.strict,RevJump,ScaleTrees,10,10010000,1000,10000,10000,y,,100,1000,6,,x,x,x,x,x,x,,
 bantu-omaha-uni.localresidence,RevJump,ScaleTrees,10,10010000,1000,10000,10000,y,n,100,1000,6,,x,x,x,x,x,x,,
 uto-hawaiian-absenceofcousinmarriage.permitted,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,y,100,1000,6,,x,x,x,x,x,x,,
 uto-hawaiian-absenceofcousinmarriage.preference,RevJump,ScaleTrees,10,10010000,1000,10000,10000,,?,100,1000,6,,x,x,x,x,x,x,,

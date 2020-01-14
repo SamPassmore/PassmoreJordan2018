@@ -1,0 +1,20 @@
+ancestral-states-3.tar.gz kinterm-rates-of-change reconstructions-bluecrystal terminology-anc-state terminology-coevolution
+Running on host node32-010
+Time is Mon Oct 30 09:13:16 GMT 2017
+Directory is /panfs/panasas01/arch/sp16194/terminology-anc-state/fossilize-bantu/jobs
+PBS job ID is 6263929.master.cm.cluster
+This jobs runs on the following machines: echo node32-010
+job-bantu-Crow.sh
+6263930.master.cm.cluster
+job-bantu-Descriptive.sh
+6263931.master.cm.cluster
+job-bantu-Hawaiian.sh
+6263932.master.cm.cluster
+job-bantu-Iroquois.sh
+6263933.master.cm.cluster
+job-bantu-Mixed.sh
+6263934.master.cm.cluster
+job-bantu-Omaha.sh
+6263935.master.cm.cluster
+job-bantu-Sudanese.sh
+6263936.master.cm.cluster

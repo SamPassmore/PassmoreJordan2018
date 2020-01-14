@@ -1,0 +1,19 @@
+kinspace kinterm-paper kinterm-rates-of-change purity_prosociality R sibling_typology terminology-anc-state terminology-coevolution2
+Running on host node32-024
+Time is Fri Dec 13 13:19:50 GMT 2019
+Directory is /newhome/sp16194/terminology-anc-state/fossilize-uto/jobs
+PBS job ID is 8987076.master.cm.cluster
+This jobs runs on the following machines: echo node32-024
+job-utoaztecan-Crow.sh
+8987089.master.cm.cluster
+job-utoaztecan-Descriptive.sh
+8987094.master.cm.cluster
+job-utoaztecan-Hawaiian.sh
+8987100.master.cm.cluster
+job-utoaztecan-Iroquois.sh
+8987107.master.cm.cluster
+job-utoaztecan-Mixed or variant patterns not adequately represented by any of the foregoing symbols.sh
+job-utoaztecan-Omaha.sh
+8987116.master.cm.cluster
+job-utoaztecan-Sudanese.sh
+8987121.master.cm.cluster

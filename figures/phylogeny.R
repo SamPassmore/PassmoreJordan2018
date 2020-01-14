@@ -59,9 +59,11 @@ height = 11.7
 d = read.table('data/co-evo/bantu-iroquois-cross.cousinmarriage.preferred.btdata',row.names = 1)
 d = apply(d, 2, function(c) ifelse(c == 1, "#E41A1C", "white"))
 
-t = read.nexus('data/co-evo/bantu-iroquois-cross.cousinmarriage.preferred.bttrees')
+t = read.nexus('data/co-evo/bantu-iroquois-cross.cousinmarriage.preferred.btdata')
 tree = t[[1]]
 tree = ladderize(tree) # make tree look nice
+
+d = d[tree$tip.label,]
 
 # nice tiplabels
 tree$tip.label = str_replace(tree$tip.label, ".*_", "")
@@ -83,8 +85,10 @@ t = read.nexus('data/co-evo/uto-iroquois-cross.cousinmarriage.preferred.bttrees'
 tree = t[[1]]
 tree = ladderize(tree) # make tree look nice
 
-new_tips = read.csv('figures/uto-tiplabels.csv', stringsAsFactors = FALSE)
-tree$tip.label = new_tips$new
+# new_tips = read.csv('figures/uto-tiplabels.csv', stringsAsFactors = FALSE)
+# tree$tip.label = new_tips$new
+
+d = d[tree$tip.label,]
 
 offset = 0.005
 pdf('figures/uto-iroquoi-crosscousinmarriage.preferred.pdf', width = width * 0.5, height = height / 3)
@@ -104,6 +108,8 @@ tree = ladderize(tree) # make tree look nice
 
 new_tips = read.csv('figures/aust-tiplabels.csv', stringsAsFactors = FALSE)
 tree$tip.label = new_tips$new
+
+d = d[tree$tip.label,]
 
 offset = 280
 pdf('figures/austronesian-iroquoi-crosscousinmarriage.preferred-twopoint.pdf', width = width * 0.8, height = height * 0.9)

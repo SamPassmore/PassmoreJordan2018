@@ -1,0 +1,76 @@
+Running on host node33-003
+Time is Fri Dec 13 13:20:54 GMT 2019
+Directory is /newhome/sp16194/terminology-anc-state
+PBS job ID is 8987094.master.cm.cluster
+This jobs runs on the following machines: echo node33-003
+BayesTraits V3.0 (Mar  2 2017)
+Mark Pagel and Andrew Meade
+www.evolution.reading.ac.uk
+
+
+Please select the model of evolution to use.
+1)	MultiState
+4)	Continuous: Random Walk (Model A)
+5)	Continuous: Directional (Model B)
+7)	Independent Contrast
+8)	Independent Contrast: Correlation
+Please select the analysis method to use.
+1)	Maximum Likelihood.
+2)	MCMC
+Options:
+Model:                           MultiState
+Tree File Name:                  data2/utoaztecan.bttrees
+Data File Name:                  data2/utoaztecan.btdata
+Log File Name:                   data2/utoaztecan.btdata.Log.txt
+Save Initial Trees:              False
+Save Trees:                      False
+Summary:                         False
+Seed:                            1359646774
+Precision:                       64 bits
+Cores:                           1
+Analysis Type:                   MCMC
+Sample Period:                   1000
+Iterations:                      1010000
+Burn in:                         10000
+MCMC ML Start:                   False
+Schedule File:                   data2/utoaztecan.btdata.Schedule.txt
+Rate Dev:                        AutoTune
+No of Rates:                     12
+Base frequency (PI's):           None
+Character Symbols:               1,3,4,5
+Using a covarion model:          False
+Normalise Q Matrix:              False
+Restrictions:
+    q13                          None
+    q14                          None
+    q15                          None
+    q31                          None
+    q34                          None
+    q35                          None
+    q41                          None
+    q43                          None
+    q45                          None
+    q51                          None
+    q53                          None
+    q54                          None
+Prior Information:
+    Prior Categories:            100
+    Priors
+        q13 - uniform 0.00 100.00 
+        q14 - uniform 0.00 100.00 
+        q15 - uniform 0.00 100.00 
+        q31 - uniform 0.00 100.00 
+        q34 - uniform 0.00 100.00 
+        q35 - uniform 0.00 100.00 
+        q41 - uniform 0.00 100.00 
+        q43 - uniform 0.00 100.00 
+        q45 - uniform 0.00 100.00 
+        q51 - uniform 0.00 100.00 
+        q53 - uniform 0.00 100.00 
+        q54 - uniform 0.00 100.00 
+Tree Information
+     Trees:                      800
+     Taxa:                       22
+     Sites:                      1
+     States:                     4
+Cannot convert 2 to a valid multi-state value.

@@ -13,13 +13,13 @@ header-includes:
 output:
   word_document:
     toc: yes
+  pdf_document:
+    toc: yes
   html_document:
     number_sections: yes
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: yes
-bibliography: bibliography.bibtex
+#bibliography: bibliography.bibtex
 ---
 
 ```{r setup, include=FALSE}
@@ -48,7 +48,7 @@ format_change = 'pandoc'
 
 # Data
 ## Kinship and social structure
-All data was extracted from the D-PLACE Ethnographic atlas [github repository](https://github.com/D-PLACE/dplace-data). Counts of the number of societies used for the signal and ancestral state analyses for each languages family are in table S1. Question and variable codes are displayed below in table S2. Due to the nature of the analysis, all variables are binary coded. The numbers  in the value columns indicate the criteria for a society to have the terminology or social structure coded as present (i.e. 1). For details on what each code indicates, refer to the Ethnographic Atlas codebook or the [D-PLACE github repository](https://github.com/D-PLACE/dplace-data/blob/master/datasets/EA/codes.csv).
+All data was extracted from the D-PLACE Ethnographic atlas [github repository](https://github.com/D-PLACE/dplace-data). Counts of the number of societies used for the signal and ancestral state analyses for each languages family are in table S1. Question and variable codes are displayed below in table S2. Due to the nature of the analysis, all variables are binary coded. The numbers  in the value columns indicate the criteria for a society to have the terminology or social structure coded as present. For details on what each code indicates, refer to the Ethnographic Atlas codebook or the [D-PLACE github repository](https://github.com/D-PLACE/dplace-data/blob/master/datasets/EA/codes.csv).
 
 
 ```{r results='asis', message = FALSE}
@@ -67,6 +67,7 @@ kable(t,
       format = format_change) %>% 
   kable_styling()
 ```
+
 <!-- \newpage -->
 <!-- \blandscape -->
 <!-- \Rotatebox{90}{ -->
@@ -116,8 +117,8 @@ kable(s, col.names =
 ```{r, results='asis', message = FALSE}
 quotes = read.csv('figures/hypothesis-table.csv')
 
-kable(quotes[,1:6], 
-      caption = "Table S3: hypotheses with quotes, references and page numbers", format = format_change) %>% 
+kable(quotes[,1:5], 
+      caption = "Table S3: hypotheses from earliest found source with quotes, references and page numbers", format = format_change) %>% 
  kable_styling(full_width = TRUE)
 ```
 
@@ -125,7 +126,7 @@ kable(quotes[,1:6],
 ## Phylogenies 
 
 We tested hypotheses across three languages families, where data allowed. This was the Austronesian, Bantu, and Uto-Aztecan language phylogenies (@gray2009, @grollemund2015bantu, @Levinson_Greenhill_Gray_Dunn_2011). All language to phylogeny pairings were taken from decisions made in @kirby2016d.
-In Austronesian, we sub-sampled 1000 phylogenies from a posterior sample of 4199 phylogenies. Austronesian phylogenies were estimated through linguistic data and supported by genetic evidence, and archaeological records. Detailed methods can be found in @gray2009. Trees were pruned from the original sample of 400 languages, to 80 languages based on data availability. In Bantu, we sampled 1000 from a posterior sample of 2000 phylogenies developed in @grollemund2015bantu. These trees were built using linguistic data and calibrated using the archaeological record. Trees were pruned from the original sample of 425 languages, to 69 languages based on data availability. In Uto-Aztecan, we sampled 1000 phylogenies from a posterior of 10,000 phylogenies modeled by @Levinson_Greenhill_Gray_Dunn_2011. This posterior was built using linguistic data. Trees were pruned from the original sample of 34 languages, to 19 based on data availability.
+In Austronesian, we sub-sampled 1000 phylogenies from a posterior sample of 4199 phylogenies. Austronesian phylogenies were estimated through linguistic data and supported by genetic evidence, and archaeological records. Detailed methods can be found in @gray2009. Trees were pruned from the original sample of 400 languages, to 80 languages based on data availability. In Bantu, we sampled 1000 from a posterior sample of 2000 phylogenies developed in @grollemund2015bantu. These trees were built using linguistic data and calibrated using the archaeological record. Trees were pruned from the original sample of 425 languages, to 69 languages based on data availability. In Uto-Aztecan, we sampled 1000 phylogenies from a posterior of 10,000 phylogenies modeled by @Levinson_Greenhill_Gray_Dunn_2011. This posterior was built using linguistic data. Trees were pruned from the original sample of 34 languages, to 19 based on data availability. All branch lengths are standardized to have a mean length of 0.1, as per BayesTraits recommendations. 
 
 # Signal tests
 We performed 4 signal tests to assess the hypotheses that shared ancestry was a constraint on kinship diversity. The phylogenetic ‘D’ test uses simulation to determine whether the clustering of binary variables on a phylogeny follow patterns of Brownian motion (D = 0 indicates perfectly Brownian clusters and D < 0 strong clustering) or random clustering (D = 1 indicates complete randomness). To test whether geography may also predict the distribution of terminologies, we used Mantel tests. Mantel tests use random permutation and Pearson’s correlation statistics to determine the correlation between two matrices. Here we compare log geographic distance, calculated with the Haversine formula, to a binary similarity matrix of each terminology present in each language family, each over the default setting of 999 permutations. To determine whether phylogenetic or geographic distances best determined the distribution of terminologies, we used partial Mantel tests. Partial Mantel tests control for a confounding third matrix, while comparing another two matrices. We perform a test between a terminology and geographic distance, controlling for phylogenetic distance, and another between terminology and phylogenetic distance, controlling for geographic distance. Phylogenetic distance is calculated using cophenetic distance, and the cophenetic function in R {stats} (R Core Team 2018). Table S3 shows the mean posterior result from 1000 phylogenies for all terminologies present within each language family. However, we only consider results viable if the terminology consists of more than 10% of the overall sample. All p-values are bonferonni corrected. 
@@ -178,7 +179,7 @@ print(
 ## MCMC review
 Ancestral state inference allows us to estimate the probability of a particular terminology at the root of each language phylogeny, as well as estimating the patterns of change between each state. We perform Bayesian reversible-jump MCMC ancestral state inference kinship terminologies using BayesTraits V 3.0 Multistate (Pagel and Meade 2017). Multistate uses a posterior of phylogenies to estimate the probability of each terminology present in the taxa at the phylogeny root, and an estimation of the rate (Q) matrix. The reversible-jump approach searches the model space for an optimal solution by dynamically setting some rate parameters (i.e. transitions from one state to another) to zero. This results in searching the model space where we are confident transition rates are non-zero. The Q matrix shows the likelihood of changing from any state to any other. MCMC chains were run for 10^9^ iterations, sampling every 50,000 iterations with a burn-in of 10,000 iterations, to give a posterior sample of 20,000. Each analysis ran three times to test consistent MCMC convergence using the Gelman-Rubin diagnostic (Gelman and Rubin 1992). Due to uncertainty in the inference of the Bantu ancestral state, each terminology present in the phylogeny was 'fossilized' as the root to estimate likelihoods. Effectively, this forces the algorithm to build a model given a particular ancestral state and given the contemporary data. We can then compare the model fit across each constrained model. We calculate pairwise Bayes factors (BF) to assess the evidence for each response. BF < 3 indicates weak evidence, >3 positive evidence, and >10 very strong evidence. This is shown in section 3.1.1. 
 
-```{r ancstate-mcmc, results='asis', warning=FALSE}
+```{r ancstate-mcmc, results='asis', warning=FALSE, eval = TRUE}
 folders = paste0('results/anc-state/', c('austronesian', 'bantu', 'utoaztecan'))
 gelmanrubin_table = matrix(NA, ncol = 2, nrow = 3, 
                            dimnames = list(basename(folders), 
@@ -236,13 +237,13 @@ print(
 ### Fossilized Bantu
 #### MCMC Review
 
-We fossilize the ancestral state for each possible terminology within Bantu in an attempt to determine the most plausible ancestral state. Below are the MCMC diagnostics for these models and the result with comparisons to an Iroquoian fossilized ancestral state. 
+We fossilize the ancestral state for each possible terminology within Bantu in an attempt to determine the most plausible ancestral state. Below are the marginal log-likelihoods for these models and the result with comparisons to the most likely ancestral state, Iroquoian. 
 
 ```{r fossilized-bantu-mcmc, results='asis'}
-files = list.files('results/anc-state/fossilized-bantu/', pattern = "Log.txt", 
+files = list.files('results/anc-state/fossilize-bantu/output', pattern = "Log.txt", 
                    full.names = TRUE)
 
-stones_files = list.files('results/anc-state/fossilized-bantu/', pattern = "Stones.txt", 
+stones_files = list.files('results/anc-state/fossilize-bantu/output', pattern = "Stones.txt", 
                    full.names = TRUE)
 
 bantu_kincodes = stones_files %>% 
@@ -251,65 +252,136 @@ bantu_kincodes = stones_files %>%
   sapply(extract2, 1) %>% 
   unique()
 
-gelmanrubin_table = matrix(NA, ncol = 2, nrow = length(bantu_kincodes), 
-                           dimnames = list((bantu_kincodes), 
-                                           c("Point est.", "Upper C.I.")))
+# gelmanrubin_table = matrix(NA, ncol = 2, nrow = length(bantu_kincodes), 
+#                            dimnames = list((bantu_kincodes), 
+#                                            c("Point est.", "Upper C.I.")))
 
-lh_table = matrix(NA, ncol = length(bantu_kincodes), nrow = 4, 
-                  dimnames = list(c(1:3, "Mean"), bantu_kincodes))
+# lh_table = matrix(NA, ncol = length(bantu_kincodes), nrow = 1, 
+#                   dimnames = list("Mean"), bantu_kincodes)
 
-for(k in bantu_kincodes){
+lh_table = vector(length = length(bantu_kincodes))
+for(i in 1:length(bantu_kincodes)){
+  k = bantu_kincodes[i]
   idx = str_detect(files, as.character(k))
   logs = map(files[idx], bt_read.log)
  
-  all_mcmc = mcmc.list(map(logs, function(x) as.mcmc(x$Lh)))
-  d1 = gelman.diag(all_mcmc)
-  gelmanrubin_table[k,] = d1$psrf
+  # all_mcmc = mcmc.list(map(logs, function(x) as.mcmc(x$Lh)))
+  # d1 = gelman.diag(all_mcmc)
+  # gelmanrubin_table[k,] = d1$psrf
   
   idx = str_detect(stones_files, as.character(k))
   stones = map(stones_files[idx], bt_read.stones) 
   
-  stones = lapply(stones, function(s) s$marginal_likelihood) %>% 
+  stones = lapply(stones, function(s) s$marginal_likelihood) %>%
     unlist()
   
-  lh_table[,k] = c(stones, harmonic.mean(stones))
+  #lh_table[k] = c(stones, harmonic.mean(stones))
+  lh_table[i] = stones
 }
 
-  print(
-    lh_table %>% 
-    kable(format = format_change, caption = "Table S9: Marginal log-likelihood for three runs of each fossilized terminology in Bantu", digits = 3) %>%
+lh_table2 = data.frame(terminology = bantu_kincodes, MLL = lh_table, row.names = NULL)
+
+
+print(
+    lh_table2 %>% 
+    kable(format = format_change, caption = "Table S9: Marginal log-likelihood for each fossilized terminology in Bantu", digits = 3, col.names = c("terminology", "MLL")) %>%
     kable_styling(bootstrap_options = c("striped", "bordered"))
   )
 
 
-print(
-  gelmanrubin_table %>% 
-    kable(format = format_change, 
-          caption = "Table S10: Gelman-Rubin tests of MCMC convergence for each each fossilized model",
-          digits = 3) %>%
-    kable_styling(bootstrap_options = c("striped", "bordered"))
-)
-
+# print(
+#   gelmanrubin_table %>% 
+#     kable(format = format_change, 
+#           caption = "Table S10: Gelman-Rubin tests of MCMC convergence for each each fossilized model",
+#           digits = 3) %>%
+#     kable_styling(bootstrap_options = c("striped", "bordered"))
+# )
 ```
 
 #### Bayes factor model comparison
 
-Bayes factor calculations show that there is some evidence for a Iroquoian root over a Hawaiian root (BF = 2.957). The table below shows comparisons to the fossilized Iroquois root to all other fossilized roots. 
+Bayes factor calculations show that there is some evidence for a Iroquoian root over a Hawaiian root (BF = 2.306). The table below shows comparisons to the fossilized Iroquois root to all other fossilized roots. 
 
 ```{r fossilized-bantu-bf, results='asis'}
-lh = lh_table[4,]
+lh = lh_table2[,2]
 bf = outer(lh, lh, function(x,y) 2 * (x - y))
+dimnames(bf) = list(lh_table2[,1], lh_table2[,1])
 bf = data.frame(terminology = colnames(bf) , bf = bf[,"Iroquois"])
 colnames(bf) = c("terminology", "Bayes' Factor")
 
 print(
   bf %>% 
     kable(format = format_change, 
-          caption = "Table S11: Pariwise Bayes factor between Iroquois and all other possible states.",
+          caption = "Table S10: Pariwise Bayes factor between Iroquois and all other possible states.",
           digits = 3, row.names = FALSE) %>%
     kable_styling(bootstrap_options = c("striped", "bordered"))
 )
 ```
+
+### Fossilized Uto-Aztecan
+#### MCMC Review
+
+As with Bantu, we fossilize the ancestral state for each possible terminology within UtoAztecan to determine the most plausible ancestral state. Below are the marginal log-likelihoods for these models, followed by a BayesFactor comparisons between the most likely ancestral state & all other possible states. 
+
+```{r fossilized-uto}
+files = list.files('results/anc-state/fossilize-uto/output', pattern = "Log.txt", 
+                   full.names = TRUE)
+
+stones_files = list.files('results/anc-state/fossilize-uto/output', pattern = "Stones.txt", 
+                   full.names = TRUE)
+
+uto_kincodes = stones_files %>% 
+  basename() %>% 
+  str_split("_") %>%
+  sapply(extract2, 1) %>% 
+  unique()
+
+lh_table = vector(length = length(uto_kincodes))
+for(i in 1:length(uto_kincodes)){
+  k = uto_kincodes[i]
+  idx = str_detect(files, as.character(k))
+  logs = map(files[idx], bt_read.log)
+  
+  idx = str_detect(stones_files, as.character(k))
+  stones = map(stones_files[idx], bt_read.stones) 
+  
+  stones = lapply(stones, function(s) s$marginal_likelihood) %>%
+    unlist()
+  
+  lh_table[i] = stones
+}
+
+lh_table2 = data.frame(terminology = uto_kincodes, MLL = lh_table, row.names = NULL)
+
+
+print(
+    lh_table2 %>% 
+    kable(format = format_change, caption = "Table S11: Marginal log-likelihood for each fossilized terminology in Uto Aztecan", digits = 3, col.names = c("terminology", "MLL")) %>%
+    kable_styling(bootstrap_options = c("striped", "bordered"))
+  )
+```
+
+#### Bayes factor model comparison
+
+Bayes factor calculations show that even when fossilizing to each possible root - there is no preference for a particular ancestral state. 
+
+
+```{r fossilized-uto-bf, results='asis'}
+lh = lh_table2[,2]
+bf = outer(lh, lh, function(x,y) 2 * (x - y))
+dimnames(bf) = list(lh_table2[,1], lh_table2[,1])
+bf = data.frame(terminology = colnames(bf) , bf = bf[,"Hawaiian"])
+colnames(bf) = c("terminology", "Bayes' Factor")
+
+print(
+  bf %>% 
+    kable(format = format_change, 
+          caption = "Table S12: Pariwise Bayes factor between Iroquois and all other possible states.",
+          digits = 3, row.names = FALSE) %>%
+    kable_styling(bootstrap_options = c("striped", "bordered"))
+)
+```
+
 
 ## PMP in Austronesia
 
@@ -322,7 +394,7 @@ recnode = l[,44:49] %>% colMeans()
 print(
   recnode %>% 
     kable(format = format_change, 
-          caption = "Table S12: Ancestral state for PMP",
+          caption = "Table S13: Ancestral state for PMP",
           digits = 3, row.names = TRUE, 
           col.names = c("Probability")) %>%
     kable_styling(bootstrap_options = c("striped", "bordered"))
@@ -353,8 +425,8 @@ new_names = data.frame(
 )
 
 files = list.files('results/transition-rates/', 
-                   pattern = "-st.csv", full.names = TRUE)
-i = 13
+                   pattern = ".csv", full.names = TRUE)
+i = 14
 for(f in files){
   t = read.csv(f)
   colnames(t) = c("transition", 1:(ncol(t)-2), "Z")
@@ -362,14 +434,14 @@ for(f in files){
   nonzero = rowSums(transitions[,-ncol(transitions)], na.rm = TRUE)
   percent = transitions$Z / rowSums(transitions, na.rm = TRUE)
   
-  t = left_join(t, new_names, by = c("transition" = "value"))
+  t = suppressWarnings(left_join(t, new_names, by = c("transition" = "value")))
   
   t2 = data.frame(transition = t$label, 
                   parameterized = nonzero,
                   zero = transitions$Z,
                   percentage =  1 - percent)
   
-  t2 = t2[order(t2$percentage, decreasing = FALSE),]
+  t2 = t2[order(t2$percentage, decreasing = TRUE),]
   rownames(t2) = NULL
   
   caption = paste0("Table S", i,": Transition rates between kin terminologies in the ",
@@ -407,7 +479,7 @@ print(
   anc_states %>% 
     kable(format = format_change, 
           caption = 
-            "Table S16: Ancestral state of Bantu with missing data included",
+            "Table S17: Ancestral state of Bantu with missing data included",
           digits = 3, col.names = c("probability")) %>%
     kable_styling(bootstrap_options = c("striped", "bordered"), full_width = FALSE)
 )
@@ -430,7 +502,7 @@ m = mcmc %>%
 kable(m[complete.cases(m),], col.names = 
         c("hypotheses", "exponential mean", 'scaled branch length', "iterations", 
           "sampling", 'burn-in', 'posterior size'), 
-      caption = "Table S17: MCMC settings for both dependent and independent analyses", format = format_change) %>% 
+      caption = "Table S18: MCMC settings for both dependent and independent analyses", format = format_change) %>% 
   kable_styling()
 ```
 
@@ -464,13 +536,13 @@ for(i in seq_along(m$job)){
 
   # find the right files
   # This is ithe dependent and independent models for each hypotheses
-  idx = str_detect(files_1, hypotheses)
+  idx = str_detect(files_1, paste0(hypotheses, "-[i|d]"))
   f1 = files_1[idx]
   
-  idx = str_detect(files_2, hypotheses)
+  idx = str_detect(files_2, paste0(hypotheses, "-[i|d]"))
   f2 = files_2[idx]
   
-  idx = str_detect(files_3, hypotheses)
+  idx = str_detect(files_3, paste0(hypotheses, "-[i|d]"))
   f3 = files_3[idx] 
   
   # load the files
@@ -497,13 +569,13 @@ for(i in seq_along(m$job)){
   
   # find the right stones files
   # this is one for the dependent and one for the independent model
-  idx = str_detect(stones_1, hypotheses)
+  idx = str_detect(stones_1, paste0(hypotheses, "-[i|d]"))
   s1_f = stones_1[idx]
   
-  idx = str_detect(stones_2, hypotheses)
+  idx = str_detect(stones_2, paste0(hypotheses, "-[i|d]"))
   s2_f = stones_2[idx]
   
-  idx = str_detect(stones_3, hypotheses)
+  idx = str_detect(stones_3, paste0(hypotheses, "-[i|d]"))
   s3_f = stones_3[idx] 
   
   s1 = lapply(s1_f, bt_read.stones) %>%
@@ -539,7 +611,7 @@ for(i in seq_along(m$job)){
   caption = hypotheses %>% 
     str_replace("-", " : ") %>%
     str_replace("-", " <-> ") %>%
-    paste("Table S", i + 17, ": ", ., sep = "") %>% 
+    paste("Table S", i + 18, ": ", ., sep = "") %>% 
     str_to_title()
   
   print(
@@ -592,102 +664,6 @@ ggplot(gather(hist_data), aes(value)) +
   xlab("Probability") + ylab("Frequency")
 ```
 
-### Multi-solution models
-
-Some of the hypotheses did not converge satisfactorily despite passing the Gelman-Rubin tests. These often are switching between two possible solutions. Extending burn-in to 2332763595 iterations had no effect of convergence (this is the longest run time allowed by server constraints). Therefore we conclude that these two solutions are equally likely and we qualitatively explore the solutions here. 
-
-#### Austronesian
-###### Crow and Matri-anvunculocal residence
-
-There is evidence of two solutions in this model. The most likely model has a likelihood of ~69 (model 1), and a second with a likelihood of ~76 (model 2). The ancestral states are similar, but model 1 shows changes are occurring approximately half as fast as model 2. Under model 1 changes from Crow terminologies to not Crow would occur 200 times every ten years, which seems unlikely. Therefore, model 2 appears to be the most credible model. This means that the likelihood should approximately be -76, which is what the stepping stone sampler arrives at, therefore not effecting our results. 
-
-```{r echo = FALSE}
-indep = bt_read.log('results/co-evolutionary/run-1/austronesian-crow-matri.anvunclocalresidence-indep1.Log.txt')
-plot.mcmcchain(indep)
-
-stone = bt_read.stones('results/co-evolutionary/run-1/austronesian-crow-matri.anvunclocalresidence-indep1.Stones.txt')
-
-idx = indep$Lh > -75
-
-above = indep[idx,]
-below = indep[!idx,]
-
-as = rbind(colMeans(above[,11:14]), colMeans(below[,11:14])) 
-rownames(as) = c("model 1", "model 2")
-
-as %>% 
-  kable(format = format_change, caption = "Table S78: Ancestral states for model 1 and model 2", digits = 3) %>%
-      kable_styling()
-
-rates = rbind(colMeans(above[,7:10]), colMeans(below[,7:10])) 
-rownames(rates) = c("model 1", "model 2")
-
-rates %>% 
-  kable(format = format_change, caption = "Table S79: Independent rates for model 1 and model 2", digits = 3) %>%
-      kable_styling()
-
-```
-
-###### Crow and Matrilineal
-
-The independent model of this hypotheses is multi-modal, as shown in the figure below. Increasing the burn-in and chain length did not increase the preference of one model over the other. We look at the average model for each of these peaks, defining model 1 as the model with a likelihood of approximately -58, and model 2 with a likelihood of approximately -63. The models show similar ancestral states, but a large difference in the rate of change. Beta1 and Beta2 for model 1 are exceptionally high. Beta1 the rate at which societies change from Crow to not Crow is approximately 986 times per 100 years, and Beta2 indicates the rate at which societies loose matrilineal descent is approximately 798 times per 100 years. These rates seem improbable, and lead us to qualitatively prefer model 2. The stepping stone sampler has already shown a value close to this peak is preferable, and this has no change to our conclusion that these two phenomena show signs of co-evolution. 
-
-```{r echo = FALSE}
-indep = bt_read.log('results/co-evolutionary/run-1/austronesian-crow-matrilineal-indep1.Log.txt')
-plot.mcmcchain(indep)
-
-idx = indep$Lh > -61
-
-above = indep[idx,]
-below = indep[!idx,]
-
-as = rbind(colMeans(above[,11:14]), colMeans(below[,11:14])) 
-rownames(as) = c("model 1", "model 2")
-
-as %>% 
-  kable(format = format_change, caption = "Table S80: Ancestral states for model 1 and model 2", digits = 3) %>%
-      kable_styling()
-
-rates = rbind(colMeans(above[,7:10]), colMeans(below[,7:10])) 
-rownames(rates) = c("model 1", "model 2")
-
-rates %>% 
-  kable(format = format_change, caption = "Table S81: Independent rates for model 1 and model 2", digits = 3) %>%
-      kable_styling()
-```
-
-
-
-###### Eskimo and Monogamy
-
-This hypotheses is multi-modal and running the chain longer made no decision between the two. In this instance we have two competing solutions, model one suggests it is likely that Eskimo type is the most likely ancestral state, but is split between whether monogamy was also present. Model two suggests that an Eskimo system was not the ancestral state, and neither was monogamy. Ancestral state analyses presented in this paper strongly suggests that Eskimo is very likely to be the ancestral state in Austronesia, so we take model one as the more likely model. The stepping stone sampler already prefers this model, therefore this makes no changes to our results. 
-
-```{r echo = FALSE}
-indep = bt_read.log('results/co-evolutionary/run-1/austronesian-eskimo-monogamy-indep1.Log.txt')
-plot.mcmcchain(indep)
-
-stones = bt_read.stones('results/co-evolutionary/run-1/austronesian-crow-matrilineal-indep1.Stones.txt')
-
-idx = indep$Lh > -70
-
-above = indep[idx,]
-below = indep[!idx,]
-
-as = rbind(colMeans(above[,11:14]), colMeans(below[,11:14])) 
-rownames(as) = c("model 1", "model 2")
-
-as %>% 
-  kable(format = format_change, caption = "Table S82: Ancestral states for model 1 and model 2", digits = 3) %>%
-      kable_styling()
-
-rates = rbind(colMeans(above[,7:10]), colMeans(below[,7:10])) 
-rownames(rates) = c("model 1", "model 2")
-
-rates %>% 
-  kable(format = format_change, caption = "Table S83: Independent rates for model 1 and model 2", digits = 3) %>%
-      kable_styling()
-```
-
 ## Multiple comparisons
 
 Since this study has numerous hypothesis tests, it is important we address the statistical problem of multiple comparisons. The multiple comparison problem says that the more hypotheses tested simultaneously, the more likely an erroneous error is to occur. There is strong debate in the literature on whether this is a problem here, but we argue that it is not.
@@ -702,7 +678,7 @@ We were concerned that a prevalence of phylogenetic inertia was the primary reas
 phylo_interia = read.csv('results/co-evolutionary/phylo-inertia.csv')
 
 phylo_interia %>% 
-  kable(format = format_change, caption = "Table S84: Judegments of phylogenetic inertia. The first columns shows our overall judgements. The second column shows the most likely ancestral state in an independent model of evolution, organised as [Kin terminology], [social structure]. The third column shows the probability of this state.", digits = 3, 
+  kable(format = format_change, caption = "Table S85: Judegments of phylogenetic inertia. The first columns shows our overall judgements. The second column shows the most likely ancestral state in an independent model of evolution, organised as [Kin terminology], [social structure]. The third column shows the probability of this state.", digits = 3, 
         col.names = c("hypothesis", "judgement", "Most likely ancestral state", "Probability of ancestral state")) %>%
       kable_styling()
 ```
