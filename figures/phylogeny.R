@@ -57,9 +57,9 @@ width = 8.3
 height = 11.7
 
 d = read.table('data/co-evo/bantu-iroquois-cross.cousinmarriage.preferred.btdata',row.names = 1)
-d = apply(d, 2, function(c) ifelse(c == 1, "#E41A1C", "white"))
+d = apply(d, 2, function(c) ifelse(c == 1, "black", "white"))
 
-t = read.nexus('data/co-evo/bantu-iroquois-cross.cousinmarriage.preferred.btdata')
+t = read.nexus('data/co-evo/bantu-iroquois-cross.cousinmarriage.preferred.bttrees')
 tree = t[[1]]
 tree = ladderize(tree) # make tree look nice
 
@@ -69,17 +69,19 @@ d = d[tree$tip.label,]
 tree$tip.label = str_replace(tree$tip.label, ".*_", "")
 tree$tip.label[1] = "Tiv Tivoid" # exception to the above rule
 
+cex = 1.4
+
 offset = 4000000
 pdf('figures/bantu-iroquoi-crosscousinmarriage.preferred.pdf', width = width * 0.66, height = height * 0.66)
 plot(tree,lwd=6, show.tip.label = TRUE, type = "phylogram", label.offset = offset, 
      cex = 0.5, font = 1, no.margin = TRUE)
-tiplabels(node = d[,1], pch = 21, bg = d[,1], col = "black", cex = 1)
-tiplabels(node = d[,2], pch = 22, bg = d[,2], col = "black", cex = 1, offset = offset * 2/3)
+tiplabels(node = d[,1], pch = 21, bg = d[,1], col = "black", cex = cex)
+tiplabels(node = d[,2], pch = 22, bg = d[,2], col = "black", cex = cex, offset = offset * 2/3)
 dev.off()
 
 ## uto-aztecan
 d = read.table('data/co-evo/uto-iroquois-cross.cousinmarriage.preferred.btdata',row.names = 1)
-d = apply(d, 2, function(c) ifelse(c == 1, "#E41A1C", "white"))
+d = apply(d, 2, function(c) ifelse(c == 1, "black", "white"))
 
 t = read.nexus('data/co-evo/uto-iroquois-cross.cousinmarriage.preferred.bttrees')
 tree = t[[1]]
@@ -94,13 +96,13 @@ offset = 0.005
 pdf('figures/uto-iroquoi-crosscousinmarriage.preferred.pdf', width = width * 0.5, height = height / 3)
 p = plot(tree,lwd=6, show.tip.label = TRUE, type = "phylogram", label.offset = offset, 
      cex = 0.5, font = 1, align.tip.label = TRUE, no.margin = TRUE)
-tiplabels(node = d[,1], pch = 21, bg = d[,1], col = "black", cex = 1, align.tip.label = TRUE)
-tiplabels(node = d[,2], pch = 22, bg = d[,2], col = "black", cex = 1, offset = offset * 5/6)
+tiplabels(node = d[,1], pch = 21, bg = d[,1], col = "black", cex = cex, align.tip.label = TRUE)
+tiplabels(node = d[,2], pch = 22, bg = d[,2], col = "black", cex = cex, offset = offset * 5/6)
 dev.off()
 
 # austronesian
 d = read.table('data/co-evo/austronesian-iroquois-cross.cousinmarriage.preferred.btdata',row.names = 1)
-d = apply(d, 2, function(c) ifelse(c == 1, "#E41A1C", "white"))
+d = apply(d, 2, function(c) ifelse(c == 1, "black", "white"))
 
 t = read.nexus('data/co-evo/austronesian-iroquois-cross.cousinmarriage.preferred.bttrees')
 tree = t[[1]]
@@ -115,6 +117,6 @@ offset = 280
 pdf('figures/austronesian-iroquoi-crosscousinmarriage.preferred-twopoint.pdf', width = width * 0.8, height = height * 0.9)
 p = plot(tree,lwd=9, show.tip.label = TRUE, type = "phylogram", label.offset = offset, 
          cex = 0.5, font = 1, align.tip.label = TRUE, no.margin = FALSE)
-tiplabels(node = d[,1], pch = 21, bg = d[,1], col = "black", cex = 1, align.tip.label = TRUE)
-tiplabels(node = d[,2], pch = 22, bg = d[,2], col = "black", cex = 1, offset = offset * 2/3)
+tiplabels(node = d[,1], pch = 21, bg = d[,1], col = "black", cex = cex, align.tip.label = TRUE)
+tiplabels(node = d[,2], pch = 22, bg = d[,2], col = "black", cex = cex, offset = offset * 2/3)
 dev.off()

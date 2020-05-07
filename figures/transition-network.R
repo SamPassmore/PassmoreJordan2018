@@ -53,7 +53,7 @@ settings = data.frame(family = c("austronesian", "bantu", "uto"),
                       arrival = c(0.15, 0.25, 0.35))
 rownames(settings) = settings$family
 
-pdf('figures/transition-network2.pdf')
+#pdf('figures/transition-network2.pdf')
 par(mar = c(1, 1, 1, 1))
 circos.par("points.overflow.warning" = FALSE)
 circos.initialize(factors = data$factor, xlim = c(0, 1))
@@ -93,5 +93,5 @@ for(i in 1:nrow(transition_matrix)){
     print(rate)
   }
 }
-dev.off()
+#dev.off()
 
